@@ -1,0 +1,8 @@
+ERRORS
+>"LMS.exe" process may not exit and lead to inability to rebuild(may need to add application closure check)
+*(run in debug mode to avoid the obj/bin write error bug)
+
+NOTES:
+>No verification of user-entered text (currently)
+>some functions are public for testing purposes
+>hide/ show forms (currently in-use)

@@ -12,14 +12,41 @@ namespace LMS
 {
     public partial class Login : Form
     {
+        private Boolean loginSuccess = false;
+
+        Dashboard dashboard = new Dashboard();
+
         public Login()
         {
             InitializeComponent();
         }
 
+        private object USER { get; set; }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            //store user entered data
+            var USER = new User() { password = passwordEntry.Text, username = usernameEntry.Text};
+            //compare with database
+            //
+            //check privilege
+            //store privilege to USER.adminPrivilege
+            //USER.adminPrivilege = true;
+            //...
+            loginSuccess = true;
+            //if login is sucessful show dashboard form and hide login form
+            if (loginSuccess)
+            {
+             //set modifyPanel.visible = true if adminPrivilege = true
+               if (USER.adminPrivilege)
+                    dashboard.ModifyPanel_visibleOn();
+                else
+                    dashboard.ModifyPanel_visibleOff();
 
+                dashboard.Show();
+                this.Hide();
+            }
+            
         }
 
     }
