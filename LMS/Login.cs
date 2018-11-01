@@ -19,6 +19,7 @@ namespace LMS
         public Login()
         {
             InitializeComponent();
+           //var USER = new User();
         }
 
         private object USER { get; set; }
@@ -31,7 +32,8 @@ namespace LMS
             //
             //check privilege
             //store privilege to USER.adminPrivilege
-            //USER.adminPrivilege = true;
+            //testing admin privilege
+            USER.adminPrivilege = true;
             //...
             loginSuccess = true;
             //if login is sucessful show dashboard form and hide login form
@@ -43,11 +45,22 @@ namespace LMS
                 else
                     dashboard.ModifyPanel_visibleOff();
 
+                usernameEntry.Text = "";
+                passwordEntry.Text = "";
                 dashboard.Show();
+                //this.Close();
                 this.Hide();
+            } else
+            {
+                errorLabel.Visible = true;
+                passwordEntry.Text = "";
             }
-            
         }
 
+        public void ClearUserInfo()
+        {
+            loginSuccess = false;
+            //clear current user login
+        }
     }
 }

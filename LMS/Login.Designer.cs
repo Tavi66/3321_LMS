@@ -34,6 +34,7 @@
             this.usernameLabel = new System.Windows.Forms.Label();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.loginPanel = new System.Windows.Forms.Panel();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.loginPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +94,7 @@
             // 
             this.loginPanel.BackColor = System.Drawing.Color.LightGray;
             this.loginPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.loginPanel.Controls.Add(this.errorLabel);
             this.loginPanel.Controls.Add(this.passwordLabel);
             this.loginPanel.Controls.Add(this.loginButton);
             this.loginPanel.Controls.Add(this.usernameLabel);
@@ -102,6 +104,17 @@
             this.loginPanel.Name = "loginPanel";
             this.loginPanel.Size = new System.Drawing.Size(344, 314);
             this.loginPanel.TabIndex = 0;
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.ForeColor = System.Drawing.Color.Red;
+            this.errorLabel.Location = new System.Drawing.Point(63, 17);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(208, 17);
+            this.errorLabel.TabIndex = 5;
+            this.errorLabel.Text = "Invalid username/ or password. ";
+            this.errorLabel.Visible = false;
             // 
             // Login
             // 
@@ -125,6 +138,7 @@
         private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Panel loginPanel;
+        private System.Windows.Forms.Label errorLabel;
     }
 }
 
