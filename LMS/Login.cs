@@ -19,6 +19,7 @@ namespace LMS
         public Login()
         {
             InitializeComponent();
+            this.AcceptButton = loginButton;
            //var USER = new User();
         }
 
@@ -48,7 +49,6 @@ namespace LMS
                 usernameEntry.Text = "";
                 passwordEntry.Text = "";
                 dashboard.Show();
-                //this.Close();
                 this.Hide();
             } else
             {
