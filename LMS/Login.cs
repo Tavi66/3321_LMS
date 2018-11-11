@@ -32,20 +32,34 @@ namespace LMS
             //compare with database
             //
             //check privilege
+            int privilege = 0;
             //store privilege to USER.adminPrivilege
             //testing admin privilege
             USER.adminPrivilege = true;
+            //USER.superPrivilege //???
+            //USER.adminPrivilege
+            //USER.profPrivilege
+            //USER.studPrivilege
             //...
             loginSuccess = true;
             //if login is sucessful show dashboard form and hide login form
             if (loginSuccess)
             {
-             //set modifyPanel.visible = true if adminPrivilege = true
-               if (USER.adminPrivilege)
-                    dashboard.ModifyPanel_visibleOn();
-                else
-                    dashboard.ModifyPanel_visibleOff();
+                //set modifyPanel.visible = true if adminPrivilege = true
+                if (USER.adminPrivilege)
+                {
+                    privilege = 1;
+                }
+                else if (USER.profPrivilege)
+                {
+                    privilege = 2;
+                }
+                else if (USER.studPrivilege)
+                {
+                    privilege = 3;
+                }
 
+                dashboard.setMode(privilege);
                 usernameEntry.Text = "";
                 passwordEntry.Text = "";
                 dashboard.Show();
