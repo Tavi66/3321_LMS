@@ -1,0 +1,62 @@
+Panels Needed
+
+Summary Page Panel
+  List basic user info. Change password option
+  If student
+    Show GPA
+    List currently enrolled courses - View turn in assignments button that goes to that courses view/turn in assignment page
+    Button for course enrollment
+
+  If teacher
+    Create assignment button
+    Grade assignment button
+    Enter final semester grades button
+
+  If Headmaster/Headmistress or Governor
+    Add/Edit users button
+
+User Add/Edit Panel
+  Only if Headmaster/Headmistress or Governor
+  Existing Users:
+  List all users in a datagridview with checkbox column
+  Fields: Enabled, Given Name, Family Name, Password?, Role, Year, GPA, "Graduate User" checkbox (if student) <-after save/update will advance student 1 year
+  Save/Update button
+  
+  Add new user:
+  Given Name, Family Name, Temporary Password?, Role (dropdown - Governor, Headmaster/Headmistress, Teacher, Student), Year (1-7, only if student)
+  Add Button
+
+Course Enrollment Panel
+  Only if student
+  List all eligible courses in student's current year in a datagridview with checkbox column to enroll
+  Enroll Button
+
+Create/Edit Assignment Panel
+  Only if teacher  
+  Dropdown with name of class
+  List all already-assigned assignments Datagridview with checkbox column (to delete assignment)
+  Update Button
+
+  Add assignment
+  Summary, Description, Total Points
+
+Grade Assignments Panel
+  Only if teacher
+  Dropdown with class
+  Dropdown with assignment
+  Datagridview with names of all students enrolled in class and column for their grade, and a notes field.
+  Save button
+
+Final Grade Assignments Panel
+  Only if teacher
+  Dropdown with class
+  Datagridview with names of all students enrolled in class and column for their semester final grade, and a notes field.
+  Save button  
+
+View/turn in Assignments Panel
+  Only if Student
+  Dropdown with courses enrolled in?
+  List of assignments for this class - each has summary, description, and "turn in" button in its own container
+  If already turned in but not graded then "submitted" where turn in button was.
+  If graded, then grade listed where turn in button was
+    

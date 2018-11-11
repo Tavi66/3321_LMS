@@ -1,0 +1,172 @@
+Use cases
+
+Scenarios are based on but not strictly married to actual Harry Potter scenarios
+
+Database starts off as if Harry's third year is about to start.
+
+(All these can be automated for the purposes of testing)
+
+Use Case 1
+
+Gilderoy Lockhart did not work out as a professor. Albus Dumbledore logs in and disables Gilderoy Lockharts account.
+Dumbledore adds a new teacher: Remus Lupin. Login Remus.Lupin, Password RLPass, role is teacher
+System discovers what will be his uniqe id in the system. All IDs start with 900 followed by role (teacher is 2) followed by 2 digits which is one more than last entry.
+Dumbledore Logs off.
+
+Use Case 2
+Harry Potter, Hermione Granger, and Ron Weasley all enroll in the following classes:
+Charms Year 3
+Herbology Year 3
+Divination Year 3
+Potions Year 3
+Transfiguration Year 3
+
+Fred Weasley, George Weasley, and Angelina Johnson all enroll in the following classes:
+Charms Year 5
+Herbology Year 5
+Divination Year 5
+Potions Year 5
+Transfiguration Year 5
+
+All users log out when they are done.
+Note that the only classes listed are the ones that match their "year" entry in their user table.
+
+Use Case 3
+Severus Snape assigns the following assignment to the 5th year potions class:
+1 roll of parchment on the properties of moonstones. Total point 10. Due in 2 days.
+Snape logs out.
+
+Angelina logs in and sees the assignment is due. She turns it in immediately.
+Fred Weasley logs in and sees the assignment is due but turns it in at the last minute.
+George Weasley fails to turn in the assignment.
+
+Seversus Snape logs in and records their grades: Angelina: 6, Fred: 3, George: 0
+Angelina, Fred and George log and and see their grades.
+All users log off.
+
+Use Case 4
+Sybill Trelawney assigns the following assignment to the 3rd year class:
+20 predictions based on tea leaves, total points: 5
+Harry, Ron, and Hermione all turn in the assignment
+Sybill gives the following grades: Harry: 4, Ron: 3, Hermione: 2
+Harry, Ron, and Hermione log in and see their grades.
+
+Use Case 5
+Hermione drops the divination class. Her grade on the predictions assignment also dissappears.
+Sybill logs in and sees that Hermione is no longer listed on the roster
+
+Use Case 6
+Snape subs for Lupin because he is sick. He assigns the 3rd year defense against the dark arts class an essay on the properties of the werewolf.
+Hermione turns in the assignment. Harry and Ron do not.
+Lupin recovers, logs in and cancels the assignment.
+Hermione, Ron, and Harry all log in to see the assignment is no longer there.
+
+Use Case 6
+Year is over
+Severus Snape assigns the following final grades for the semester:
+Potions Year 3
+Harry: 3
+Ron: 4
+Hermione: 5
+Potions Year 5
+Angelina: 5
+Fred: 4
+George: 3
+Sybill Trewlaney assigns the following final grades for the semester:
+Divination Year 3
+Harry: 4
+Ron: 4
+Divination Year 5
+Angelina: 5
+Fred: 4
+George: 4
+Remus Lupin assigns the following final grades for the semester:
+Defense against the Dark Arts Year 3
+Harry: 5
+Ron: 4
+Hermione: 4
+Defense against the Dark Arts Year 5
+Angelina: 5
+Fred: 5
+George: 5
+
+Albus Dumbledore notes that all students have passed their classes and advances them up one year.
+
+Use case 7
+Harry Potter, Hermione Granger, and Ron Weasley all enroll in the following classes:
+Charms Year 4
+Herbology Year 4
+Divination Year 4
+Potions Year 4
+Transfiguration Year 4
+
+Fred Weasley, George Weasley, and Angelina Johnson all enroll in the following classes:
+Charms Year 6
+Herbology Year 6
+Divination Year 6
+Potions Year 6
+Transfiguration Year 6
+
+All users log out when they are done.
+Note that the only classes listed are the ones that match their "year" entry in their user table.
+
+Use case 8
+Year is over
+Severus Snape assigns the following final grades for the semester:
+Potions Year 4
+Harry: 2
+Ron: 3
+Hermione: 5
+Potions Year 6
+Angelina: 4
+Fred: 4
+George: 4
+Sybill Trewlaney assigns the following final grades for the semester:
+Divination Year 4
+Harry: 4
+Ron: 3
+Divination Year 6
+Angelina: 5
+Fred: 5
+George: 5
+Remus Lupin assigns the following final grades for the semester:
+Defense against the Dark Arts Year 4
+Harry: 5
+Ron: 4
+Hermione: 4
+Defense against the Dark Arts Year 6
+Angelina: 5
+Fred: 5
+George: 5
+
+Albus Dumbledore notes that all students have passed their classes and advances them up one year.
+
+Use case 9
+Harry Potter, Hermione Granger, and Ron Weasley all enroll in the following classes:
+Charms Year 5
+Herbology Year 5
+Divination Year 5
+Potions Year 5
+Transfiguration Year 5
+
+Fred Weasley, George Weasley, and Angelina Johnson all enroll in the following classes:
+Charms Year 7
+Herbology Year 7
+Divination Year 7
+Potions Year 7
+Transfiguration Year 7
+
+All users log out when they are done.
+Note that the only classes listed are the ones that match their "year" entry in their user table.
+
+Use case 9
+The school governors feel that Albus Dumbledore has lost his touch. They install Delores Umbridge as Headmistress but Dumbledore keeps his headmaster powers (for now.)
+Lucious Malfoy logs in. Note he cannot change anything except who is headmaster/headmistress, including adding a user if missing.
+Lucious adds user Delores Umbridge, username Delores.Umbridge password DUPass, role 2 (headmaster/headmistress)
+
+Use case 10
+Delores Umbridge fires Sybill Trelawney, so deactivates her account.
+Albus Dumbledor hires a new teacher: Firenze (no family name). Password: FPass, role 3 (teacher)
+
+Use case 11
+Fred Weasley and George Weasley leave the school. Delores Umbridge deactivates their accounts.
