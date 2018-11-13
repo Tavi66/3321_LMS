@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace LMS
 {
     public partial class Login : Form
     {
         private Boolean loginSuccess = false;
-       Dashboard dashboard = new Dashboard();
+
+        Dashboard dashboard = new Dashboard();
 
         public Login()
         {
@@ -29,36 +29,17 @@ namespace LMS
         {
             //store user entered data
             var USER = new User() { password = passwordEntry.Text, username = usernameEntry.Text};
-            //compare with database
-            //
-            //check privilege
-            int privilege = 0;
-            //store privilege to USER.adminPrivilege
-            //testing admin privilege
-            USER.profPrivilege = true;
-            //USER.superPrivilege //???
-            //USER.adminPrivilege
-            //USER.profPrivilege
-            //USER.studPrivilege
-            //...
-            loginSuccess = true;
+            LMS_Db_Connection lmsConn = LMS_Db_Connection.Instance;
+            loginSuccess = lmsConn.authenticateUser(USER.username, USER.password);
             //if login is sucessful show dashboard form and hide login form
             if (loginSuccess)
             {
-                //set modifyPanel.visible = true if adminPrivilege = true
-                if (USER.adminPrivilege)
-                {
-                    privilege = 1;
-                }
-                else if (USER.profPrivilege)
-                {
-                    privilege = 2;
-                }
-                else if (USER.studPrivilege)
-                {
-                    privilege = 3;
-                }
-                dashboard.setMode(privilege);
+                int role = lmsConn.UserRole;
+                if (role <= 2) USER.adminPrivilege = true;
+                else if (role == 3) USER.profPrivilege = true;
+                else if (role == 4) USER.studPrivilege = true;
+
+                dashboard.setMode(role);
                 usernameEntry.Text = "";
                 passwordEntry.Text = "";
                 dashboard.Show();
@@ -72,17 +53,8 @@ namespace LMS
 
         public void ClearUserInfo()
         {
-            //set login to false            
             loginSuccess = false;
-            //clear forms
-            dashboard.FormClosed += dashboardClosed;
-
-        }
-        //handle dashboard form closing
-        void dashboardClosed(object sender, FormClosedEventArgs e)
-        {
-            dashboard = null;
-            this.Show();
+            //clear current user login
         }
     }
 }
