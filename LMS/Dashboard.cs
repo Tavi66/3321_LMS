@@ -12,6 +12,8 @@ namespace LMS
 {
     public partial class Dashboard : Form
     {
+        Login login;
+
         public Dashboard()
         {
             InitializeComponent();
@@ -70,11 +72,13 @@ namespace LMS
                 case 1: //admin
                     adminPanel_visibleOn();
                     ModifyPanel_visibleOn();
-                    //test data table
-                    dataTable();
+                    //test data studentInfoTable
+                    stdInfoDataTable();
                     break;
                 case 2: //professor
+                    professorPanel_visibleOn();
                     ModifyPanel_visibleOn();
+                    //assignmentsDataTable();
                     break;
                 case 3: //student
                     studentPanel_visibleOn();
@@ -84,11 +88,16 @@ namespace LMS
                     break;
             }
         }
+
         private void studentPanel_visibleOn()
         {
             registerCoursesButton.Visible = true;
             assignmentsButton.Visible = true;
             StudentDashInfo.Visible = true;
+        }
+        private void professorPanel_visibleOn()
+        {
+            assignmentsButton.Visible = true;
         }
         private void adminPanel_visibleOn()
         {
@@ -103,10 +112,12 @@ namespace LMS
 
         private void logoutButton_Click(object sender, EventArgs e)
         {
+            //need to find way to create only one instance of all forms.
+            //maybe w/i program.cs
             //close dashboard form
+            login = new Login();
             this.Close();
             //this.Hide();
-            Login login = new Login();
             //clear user login info.
             login.ClearUserInfo();
             //show login form            
@@ -124,6 +135,7 @@ namespace LMS
                     StudentInfoGrid.AllowUserToDeleteRows = true;
                     break;
                 case 2: //professor
+                    
                     break;
                 case 3: //student
                     //view registered courses
@@ -167,29 +179,78 @@ namespace LMS
             //go to change password form/ or open modal
         }
         //test data source
-        DataTable table = new DataTable();
-        private void dataTable()
+        DataTable studentInfoTable = new DataTable();
+        DataTable createAssignmentsTable = new DataTable();
+
+        private void stdInfoDataTable()
         {
+            //STUDENT INFO TABLE
             //add columns
-            table.Columns.Add("Student", typeof(string));
-            table.Columns.Add("ID", typeof(int));
-            table.Columns.Add("Registered Courses", typeof(string));
+            studentInfoTable.Columns.Add("Student", typeof(string));
+            studentInfoTable.Columns.Add("ID", typeof(int));
+            studentInfoTable.Columns.Add("Registered Courses", typeof(string));
             //string or int
-            table.Columns.Add("Exam Scores", typeof(string));
-            table.Columns.Add("GPA", typeof(double));
+            studentInfoTable.Columns.Add("Exam Scores", typeof(string));
+            studentInfoTable.Columns.Add("GPA", typeof(double));
             //Student, ID, reg. courses, Exam Scores, GPA
             //read in data here (if by file)
-            table.Rows.Add("Fred" + " " + "Weasley", 90043, "Charms" + Environment.NewLine + "Potions" + Environment.NewLine + "Herbology", "B+",3.0);
-            table.Rows.Add("George" + " " + "Weasley", 90044, "Divination" + Environment.NewLine + "Herbology", "B-", 2.75);
-            //
-            StudentInfoGrid.DataSource = table;
+            studentInfoTable.Rows.Add("Fred" + " " + "Weasley", 90043, "Charms" + Environment.NewLine + "Potions" + Environment.NewLine + "Herbology", "B+",3.0);
+            studentInfoTable.Rows.Add("George" + " " + "Weasley", 90044, "Divination" + Environment.NewLine + "Herbology", "B-", 2.75);
+
+            StudentInfoGrid.DataSource = studentInfoTable;
         }
+        //private void assignmentsDataTable()
+        //{
+        //    ComboBox coursesList = new System.Windows.Forms.ComboBox();
+        //    string[] courses = new string[] { "Charms", "Divination", "Potions" };
+        //    coursesList.Items.AddRange(courses);
+        //    coursesList.DropDownStyle = ComboBoxStyle.DropDownList;
+        //    //CREATE ASSIGNMENTS TABLE
+        //    //Left panel (add assignments)
+        //    //select item to move to right panel
+        //    createAssignmentsTable.Columns.Add("Assignment", typeof(string));
+        //    createAssignmentsTable.Columns.Add("Description", typeof(string));
+        //    //createAssignmentsTable.Columns.Add("Due Date", typeof(DateTimePicker));
+        //    //... supposedly a dropbox... 
+        //    createAssignmentsTable.Columns.Add("Course", typeof(ComboBox));
+        //    //
+        //    createAssignmentsTable.Rows.Add("x", "x", coursesList);
+        //    //right panel (delete assigned assignments)
+        //    //can modify assignments?
+        //    //
+        //    createAssignmentsGrid.DataSource = createAssignmentsTable;
+        //}
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
             //currently delete one entry at time
-            int rowIndex = StudentInfoGrid.CurrentCell.RowIndex;
+            int rowIndex = 0;
+            switch (mode)
+            {
+                case 1: //admin
+             rowIndex = StudentInfoGrid.CurrentCell.RowIndex;
             StudentInfoGrid.Rows.RemoveAt(rowIndex);
+                    break;
+                case 2: //professor
+                    //need to separate two panels with the delete button
+             //rowIndex = createAssignmentsGrid.CurrentCell.RowIndex;
+             //       createAssignmentsGrid.Rows.RemoveAt(rowIndex);
+                    break;
+                case 3: //student
+                    break;
+                default: //invalid
+                    break;
+            }
         }
+
+        //Add click event handler to assignments button
+        private void assignmentsButton_Click(object sender, EventArgs e)
+        {
+            Assignments assignments = new Assignments();
+            assignments.setMode(mode);
+            this.Hide();
+            assignments.Show();
+        }
+        // > button click to move new assignment to assigned assignments
     }
 }

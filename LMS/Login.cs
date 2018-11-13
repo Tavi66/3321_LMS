@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace LMS
 {
     public partial class Login : Form
     {
         private Boolean loginSuccess = false;
-
-        Dashboard dashboard = new Dashboard();
+       Dashboard dashboard = new Dashboard();
 
         public Login()
         {
@@ -35,7 +35,7 @@ namespace LMS
             int privilege = 0;
             //store privilege to USER.adminPrivilege
             //testing admin privilege
-            USER.adminPrivilege = true;
+            USER.profPrivilege = true;
             //USER.superPrivilege //???
             //USER.adminPrivilege
             //USER.profPrivilege
@@ -58,7 +58,6 @@ namespace LMS
                 {
                     privilege = 3;
                 }
-
                 dashboard.setMode(privilege);
                 usernameEntry.Text = "";
                 passwordEntry.Text = "";
@@ -73,8 +72,17 @@ namespace LMS
 
         public void ClearUserInfo()
         {
+            //set login to false            
             loginSuccess = false;
-            //clear current user login
+            //clear forms
+            dashboard.FormClosed += dashboardClosed;
+
+        }
+        //handle dashboard form closing
+        void dashboardClosed(object sender, FormClosedEventArgs e)
+        {
+            dashboard = null;
+            this.Show();
         }
     }
 }

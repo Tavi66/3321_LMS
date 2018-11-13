@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ModifyPanel = new System.Windows.Forms.Panel();
             this.doneButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
@@ -136,8 +136,8 @@
             this.StudentInfoGrid.Location = new System.Drawing.Point(253, 69);
             this.StudentInfoGrid.Name = "StudentInfoGrid";
             this.StudentInfoGrid.ReadOnly = true;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentInfoGrid.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentInfoGrid.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.StudentInfoGrid.RowTemplate.Height = 24;
             this.StudentInfoGrid.Size = new System.Drawing.Size(771, 453);
             this.StudentInfoGrid.TabIndex = 7;
@@ -220,6 +220,7 @@
             this.assignmentsButton.TabIndex = 5;
             this.assignmentsButton.Text = "ASSIGNMENTS";
             this.assignmentsButton.Visible = false;
+            this.assignmentsButton.Click += new System.EventHandler(this.assignmentsButton_Click);
             // 
             // registerCoursesButton
             // 
@@ -278,11 +279,11 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1147, 581);
-            this.Controls.Add(this.StudentInfoGrid);
             this.Controls.Add(this.DateLabel);
             this.Controls.Add(this.ModifyPanel);
             this.Controls.Add(this.navPanel);
             this.Controls.Add(this.StudentDashInfo);
+            this.Controls.Add(this.StudentInfoGrid);
             this.MaximizeBox = false;
             this.Name = "Dashboard";
             this.Text = "LMS";
