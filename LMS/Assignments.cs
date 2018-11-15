@@ -27,11 +27,11 @@ namespace LMS
             switch (mode)
             {
 
-                case 2: //professor
+                case 3: //professor
                     professorPanel_visibleOn();
                     //assignmentsDataTable();
                     break;
-                case 3: //student
+                case 4: //student
 
                     break;
                 default: //invalid

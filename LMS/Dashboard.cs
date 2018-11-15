@@ -69,18 +69,20 @@ namespace LMS
             mode = privilege;
             switch(mode)
             {
-                case 1: //admin
+                case 1: //super
+                    break;
+                case 2: //admin
                     adminPanel_visibleOn();
                     ModifyPanel_visibleOn();
                     //test data studentInfoTable
                     stdInfoDataTable();
                     break;
-                case 2: //professor
+                case 3: //professor
                     professorPanel_visibleOn();
                     ModifyPanel_visibleOn();
                     //assignmentsDataTable();
                     break;
-                case 3: //student
+                case 4: //student
                     studentPanel_visibleOn();
                     ModifyPanel_visibleOff();
                     break;
@@ -129,15 +131,16 @@ namespace LMS
             switch (mode)
             {
                 case 1: //admin
+                    break;
+                case 2: //admin
                     //edit student info
                     StudentInfoGrid.ReadOnly = false;
                     StudentInfoGrid.AllowUserToAddRows = true;
                     StudentInfoGrid.AllowUserToDeleteRows = true;
                     break;
-                case 2: //professor
-                    
+                case 3: //professor
                     break;
-                case 3: //student
+                case 4: //student
                     //view registered courses
                     break;
                 default: //invalid
@@ -152,13 +155,15 @@ namespace LMS
         {
             switch (mode)
             {
-                case 1: //admin
+                case 1: //super
+                    break;
+                case 2: //admin
                     //edit student info
                     StudentInfoGrid.ReadOnly = true;
                     break;
-                case 2: //professor
+                case 3: //professor
                     break;
-                case 3: //student
+                case 4: //student
                     //view registered courses
                     break;
                 default: //invalid
@@ -227,16 +232,16 @@ namespace LMS
             int rowIndex = 0;
             switch (mode)
             {
-                case 1: //admin
+                case 2: //admin
              rowIndex = StudentInfoGrid.CurrentCell.RowIndex;
             StudentInfoGrid.Rows.RemoveAt(rowIndex);
                     break;
-                case 2: //professor
+                case 3: //professor
                     //need to separate two panels with the delete button
              //rowIndex = createAssignmentsGrid.CurrentCell.RowIndex;
              //       createAssignmentsGrid.Rows.RemoveAt(rowIndex);
                     break;
-                case 3: //student
+                case 4: //student
                     break;
                 default: //invalid
                     break;
