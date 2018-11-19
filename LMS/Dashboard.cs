@@ -99,7 +99,6 @@ namespace LMS
         }
         private void professorPanel_visibleOn()
         {
-            professorDashGrid.Visible = true;
             assignmentsButton.Visible = true;
         }
         private void adminPanel_visibleOn()

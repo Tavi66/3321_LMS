@@ -52,7 +52,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.StudentInfoGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StudentDashInfo)).BeginInit();
             this.navPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.professorDashGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // ModifyPanel
@@ -137,8 +136,6 @@
             this.StudentInfoGrid.GridColor = System.Drawing.SystemColors.Control;
             this.StudentInfoGrid.Location = new System.Drawing.Point(253, 69);
             this.StudentInfoGrid.Name = "StudentInfoGrid";
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentInfoGrid.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.StudentInfoGrid.RowTemplate.Height = 24;
             this.StudentInfoGrid.Size = new System.Drawing.Size(771, 453);
             this.StudentInfoGrid.TabIndex = 7;
@@ -274,35 +271,6 @@
             this.fNameLabel.TabIndex = 0;
             this.fNameLabel.Text = "GIVEN NAME";
             // 
-            // professorDashGrid
-            // 
-            this.professorDashGrid.AllowUserToAddRows = false;
-            this.professorDashGrid.AllowUserToDeleteRows = false;
-            this.professorDashGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.professorDashGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.professorDashGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
-            this.professorDashGrid.Location = new System.Drawing.Point(253, 69);
-            this.professorDashGrid.Name = "professorDashGrid";
-            this.professorDashGrid.ReadOnly = true;
-            this.professorDashGrid.RowTemplate.Height = 24;
-            this.professorDashGrid.Size = new System.Drawing.Size(771, 453);
-            this.professorDashGrid.TabIndex = 10;
-            this.professorDashGrid.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Assignments";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Course";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
             // Dashboard
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -321,7 +289,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.StudentDashInfo)).EndInit();
             this.navPanel.ResumeLayout(false);
             this.navPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.professorDashGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
