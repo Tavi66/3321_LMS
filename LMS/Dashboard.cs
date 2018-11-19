@@ -177,7 +177,15 @@ namespace LMS
 
         private void registerCoursesButton_Click(object sender, EventArgs e)
         {
+            DataGridViewCheckBoxColumn dbColumn = new DataGridViewCheckBoxColumn();
             //go to register courses form
+            StudentInfoGrid.DataSource = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0]; //Set the data source with info from database
+            StudentInfoGrid.Columns.Add(dbColumn); //new column=check box column
+            StudentInfoGrid.Columns[0].Visible = false; //Hide the course ID, will refrence this when enrolling user later
+            StudentInfoGrid.Columns[1].DisplayIndex = 2; //Class names listed last
+            StudentInfoGrid.Columns[2].DisplayIndex = 1; //Checkmark listed first
+            StudentInfoGrid.Columns[2].Width = 50; //make checkmark field less wide
+            StudentInfoGrid.Visible = true;
         }
 
         private void changePasswordButton_Click(object sender, EventArgs e)
@@ -204,28 +212,7 @@ namespace LMS
             studentInfoTable.Rows.Add("George" + " " + "Weasley", 90044, "Divination" + Environment.NewLine + "Herbology", "B-", 2.75);
             //StudentInfoGrid.DataSource = studentInfoTable;
         }
-        //private void assignmentsDataTable()
-        //{
-        //    ComboBox coursesList = new System.Windows.Forms.ComboBox();
-        //    string[] courses = new string[] { "Charms", "Divination", "Potions" };
-        //    coursesList.Items.AddRange(courses);
-        //    coursesList.DropDownStyle = ComboBoxStyle.DropDownList;
-        //    //CREATE ASSIGNMENTS TABLE
-        //    //Left panel (add assignments)
-        //    //select item to move to right panel
-        //    createAssignmentsTable.Columns.Add("Assignment", typeof(string));
-        //    createAssignmentsTable.Columns.Add("Description", typeof(string));
-        //    //createAssignmentsTable.Columns.Add("Due Date", typeof(DateTimePicker));
-        //    //... supposedly a dropbox... 
-        //    createAssignmentsTable.Columns.Add("Course", typeof(ComboBox));
-        //    //
-        //    createAssignmentsTable.Rows.Add("x", "x", coursesList);
-        //    //right panel (delete assigned assignments)
-        //    //can modify assignments?
-        //    //
-        //    createAssignmentsGrid.DataSource = createAssignmentsTable;
-        //}
-
+  
         private void deleteButton_Click(object sender, EventArgs e)
         {
             //currently delete one entry at time
@@ -256,6 +243,17 @@ namespace LMS
             this.Hide();
             assignments.Show();
         }
-        // > button click to move new assignment to assigned assignments
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < StudentInfoGrid.Rows.Count; i++)
+            {
+                if (StudentInfoGrid.Rows[i].Cells[0].Value != null) //If not checked, value will be null, not false
+                {
+                    //MessageBox.Show(StudentInfoGrid.Rows[i].Cells[0].Value.ToString()); //this should be true since it wasn't null
+                    //To do: call database method to enroll user in class
+                }
+            }
+        }
     }
 }
