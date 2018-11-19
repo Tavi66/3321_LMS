@@ -99,6 +99,7 @@ namespace LMS
         }
         private void professorPanel_visibleOn()
         {
+            professorDashGrid.Visible = true;
             assignmentsButton.Visible = true;
         }
         private void adminPanel_visibleOn()
@@ -201,8 +202,7 @@ namespace LMS
             //read in data here (if by file)
             studentInfoTable.Rows.Add("Fred" + " " + "Weasley", 90043, "Charms" + Environment.NewLine + "Potions" + Environment.NewLine + "Herbology", "B+",3.0);
             studentInfoTable.Rows.Add("George" + " " + "Weasley", 90044, "Divination" + Environment.NewLine + "Herbology", "B-", 2.75);
-
-            StudentInfoGrid.DataSource = studentInfoTable;
+            //StudentInfoGrid.DataSource = studentInfoTable;
         }
         //private void assignmentsDataTable()
         //{
