@@ -47,6 +47,7 @@
             this.changePasswordButton = new System.Windows.Forms.Label();
             this.lastNameLabel = new System.Windows.Forms.Label();
             this.fNameLabel = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.ModifyPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StudentInfoGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StudentDashInfo)).BeginInit();
@@ -116,7 +117,7 @@
             this.DateLabel.AutoSize = true;
             this.DateLabel.Location = new System.Drawing.Point(965, 32);
             this.DateLabel.Name = "DateLabel";
-            this.DateLabel.Size = new System.Drawing.Size(155, 17);
+            this.DateLabel.Size = new System.Drawing.Size(123, 13);
             this.DateLabel.TabIndex = 5;
             this.DateLabel.Text = "M DD YYYY HH:MM:SS";
             this.DateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -135,7 +136,6 @@
             this.StudentInfoGrid.GridColor = System.Drawing.SystemColors.Control;
             this.StudentInfoGrid.Location = new System.Drawing.Point(253, 69);
             this.StudentInfoGrid.Name = "StudentInfoGrid";
-            this.StudentInfoGrid.ReadOnly = true;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.StudentInfoGrid.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.StudentInfoGrid.RowTemplate.Height = 24;
@@ -203,7 +203,7 @@
             this.label2.Location = new System.Drawing.Point(-1, 149);
             this.label2.Name = "label2";
             this.label2.Padding = new System.Windows.Forms.Padding(5, 0, 100, 0);
-            this.label2.Size = new System.Drawing.Size(252, 25);
+            this.label2.Size = new System.Drawing.Size(227, 20);
             this.label2.TabIndex = 6;
             this.label2.Text = "DASHBOARD";
             // 
@@ -216,7 +216,7 @@
             this.assignmentsButton.Location = new System.Drawing.Point(-1, 196);
             this.assignmentsButton.Name = "assignmentsButton";
             this.assignmentsButton.Padding = new System.Windows.Forms.Padding(5, 0, 75, 0);
-            this.assignmentsButton.Size = new System.Drawing.Size(250, 25);
+            this.assignmentsButton.Size = new System.Drawing.Size(217, 20);
             this.assignmentsButton.TabIndex = 5;
             this.assignmentsButton.Text = "ASSIGNMENTS";
             this.assignmentsButton.Visible = false;
@@ -230,10 +230,9 @@
             this.registerCoursesButton.Location = new System.Drawing.Point(-1, 241);
             this.registerCoursesButton.Name = "registerCoursesButton";
             this.registerCoursesButton.Padding = new System.Windows.Forms.Padding(5, 0, 125, 0);
-            this.registerCoursesButton.Size = new System.Drawing.Size(249, 25);
+            this.registerCoursesButton.Size = new System.Drawing.Size(231, 20);
             this.registerCoursesButton.TabIndex = 4;
             this.registerCoursesButton.Text = "REGISTER";
-            this.registerCoursesButton.Visible = false;
             this.registerCoursesButton.Click += new System.EventHandler(this.registerCoursesButton_Click);
             // 
             // changePasswordButton
@@ -245,7 +244,7 @@
             this.changePasswordButton.Location = new System.Drawing.Point(-3, 388);
             this.changePasswordButton.Name = "changePasswordButton";
             this.changePasswordButton.Padding = new System.Windows.Forms.Padding(10, 10, 100, 10);
-            this.changePasswordButton.Size = new System.Drawing.Size(247, 37);
+            this.changePasswordButton.Size = new System.Drawing.Size(218, 33);
             this.changePasswordButton.TabIndex = 3;
             this.changePasswordButton.Text = "Change Password";
             this.changePasswordButton.Click += new System.EventHandler(this.changePasswordButton_Click);
@@ -258,7 +257,7 @@
             this.lastNameLabel.ForeColor = System.Drawing.Color.White;
             this.lastNameLabel.Location = new System.Drawing.Point(22, 69);
             this.lastNameLabel.Name = "lastNameLabel";
-            this.lastNameLabel.Size = new System.Drawing.Size(118, 25);
+            this.lastNameLabel.Size = new System.Drawing.Size(97, 20);
             this.lastNameLabel.TabIndex = 1;
             this.lastNameLabel.Text = "SURNAME";
             // 
@@ -270,14 +269,25 @@
             this.fNameLabel.ForeColor = System.Drawing.Color.White;
             this.fNameLabel.Location = new System.Drawing.Point(22, 44);
             this.fNameLabel.Name = "fNameLabel";
-            this.fNameLabel.Size = new System.Drawing.Size(146, 25);
+            this.fNameLabel.Size = new System.Drawing.Size(120, 20);
             this.fNameLabel.TabIndex = 0;
             this.fNameLabel.Text = "GIVEN NAME";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(265, 521);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Dashboard
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(1147, 581);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.StudentInfoGrid);
             this.Controls.Add(this.DateLabel);
             this.Controls.Add(this.ModifyPanel);
@@ -316,5 +326,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn registeredCourses;
         private System.Windows.Forms.DataGridViewTextBoxColumn Grade;
         private System.Windows.Forms.DataGridViewTextBoxColumn viewGPA;
+        private System.Windows.Forms.Button button1;
     }
 }

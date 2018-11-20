@@ -159,7 +159,15 @@ namespace LMS
 
         private void registerCoursesButton_Click(object sender, EventArgs e)
         {
+            DataGridViewCheckBoxColumn dbColumn = new DataGridViewCheckBoxColumn();
             //go to register courses form
+            StudentInfoGrid.DataSource = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0]; //Set the data source with info from database
+            StudentInfoGrid.Columns.Add(dbColumn); //new column=check box column
+            StudentInfoGrid.Columns[0].Visible = false; //Hide the course ID, will refrence this when enrolling user later
+            StudentInfoGrid.Columns[1].DisplayIndex = 2; //Class names listed last
+            StudentInfoGrid.Columns[2].DisplayIndex = 1; //Checkmark listed first
+            StudentInfoGrid.Columns[2].Width = 50; //make checkmark field less wide
+            StudentInfoGrid.Visible = true;
         }
 
         private void changePasswordButton_Click(object sender, EventArgs e)
@@ -184,12 +192,24 @@ namespace LMS
             //
             StudentInfoGrid.DataSource = table;
         }
-
+  
         private void deleteButton_Click(object sender, EventArgs e)
         {
             //currently delete one entry at time
             int rowIndex = StudentInfoGrid.CurrentCell.RowIndex;
             StudentInfoGrid.Rows.RemoveAt(rowIndex);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < StudentInfoGrid.Rows.Count; i++)
+            {
+                if (StudentInfoGrid.Rows[i].Cells[0].Value != null) //If not checked, value will be null, not false
+                {
+                    //MessageBox.Show(StudentInfoGrid.Rows[i].Cells[0].Value.ToString()); //this should be true since it wasn't null
+                    //To do: call database method to enroll user in class
+                }
+            }
         }
     }
 }
