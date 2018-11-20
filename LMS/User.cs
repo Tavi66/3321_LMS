@@ -2,6 +2,7 @@
 
 namespace LMS
 {
+
     public class User
     {
         //public Boolean superPrivilege { get; set; }

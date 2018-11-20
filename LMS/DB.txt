@@ -1,9 +1,0 @@
-﻿#
-name
-pwd
-1
-#
-name1
-pwd1
-0
-#
