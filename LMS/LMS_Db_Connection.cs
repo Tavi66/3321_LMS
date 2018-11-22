@@ -178,5 +178,15 @@ namespace LMS
             }
             return DS;
         }
+        public void Enroll_Course(int userID, int courseID)
+        {
+            dbConn.Open();
+            dbCmd = new SqlCommand("Enroll_Course_SP", dbConn);
+            dbCmd.CommandType = CommandType.StoredProcedure;
+            dbCmd.Parameters.AddWithValue("@userID", userID);
+            dbCmd.Parameters.AddWithValue("@courseID", courseID);
+            dbCmd.ExecuteNonQuery();
+            dbConn.Close();
+        }
     }
 }
