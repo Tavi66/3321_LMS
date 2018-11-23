@@ -38,6 +38,7 @@ namespace LMS
         private void refreshUserDataTable()
         {
             dgvUsers.Rows.Clear();
+            dgvUsers.Refresh();
             DataTable userTable = LMS_Db_Connection.Instance.getUsers().Tables[0];
             for (int x = 0; x < userTable.Rows.Count; x++)
             {
@@ -49,15 +50,35 @@ namespace LMS
                     userTable.Rows[x].Field<String>(4),
 
                     userTable.Rows[x].Field<Nullable<Int32>>(5),
-                    userTable.Rows[x].Field<String>(6));
+                    userTable.Rows[x].Field<String>(6)
+                );
             }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(dgvUsers.Rows[0].Cells[7].Value.ToString());
-            MessageBox.Show(dgvUsers.Rows[1].Cells[7].Value.ToString());
-            MessageBox.Show(dgvUsers.Rows[2].Cells[7].Value.ToString());
+            for (int x = 0; x < dgvUsers.RowCount; x++)
+            {
+                int year = -1;
+                if (dgvUsers.Rows[x].Cells[5].Value != null)
+                {
+                    int.TryParse(dgvUsers.Rows[x].Cells[5].Value.ToString(), out year);
+                }
+                if (dgvUsers.Rows[x].Cells[7].Value != null)
+                {
+                    year += 1;
+                }
+                LMS_Db_Connection.Instance.Update_User(
+                    int.Parse(dgvUsers.Rows[x].Cells[0].Value.ToString()),
+                    (bool)dgvUsers.Rows[x].Cells[1].Value,
+                    dgvUsers.Rows[x].Cells[2].Value.ToString(),
+                    dgvUsers.Rows[x].Cells[3].Value.ToString(),
+                    dgvUsers.Rows[x].Cells[4].Value.ToString(),
+                    year,
+                    LMS_Db_Connection.Instance.getRoleIdFromDesc(dgvUsers.Rows[x].Cells[6].Value.ToString())
+                );
+            }
+            refreshUserDataTable();
         }
 
         private void dgvUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -67,6 +88,7 @@ namespace LMS
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
+            btnUpdate.PerformClick(); //in case there are outstanding updates to be made before adding user.
             if (cboRole.SelectedText == "Student")
                 if (cboYear.SelectedText == "N/A")
                 {
@@ -86,7 +108,18 @@ namespace LMS
             if (userID != -1)
             {
                 LMS_Db_Connection.Instance.Add_User(userID, txtUserName.Text, txtPassword.Text, txtGivenName.Text, txtFamilyName.Text, Year, cboRole.SelectedIndex + 1);
+                txtUserName.Text = String.Empty;
+                txtPassword.Text = String.Empty;
+                txtGivenName.Text = String.Empty;
+                txtFamilyName.Text = String.Empty;
+                refreshUserDataTable();
+                MessageBox.Show("User added.");
             }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

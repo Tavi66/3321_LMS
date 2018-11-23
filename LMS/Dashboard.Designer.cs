@@ -176,6 +176,7 @@
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Size = new System.Drawing.Size(900, 581);
             this.contentPanel.TabIndex = 11;
+            this.contentPanel.VisibleChanged += new System.EventHandler(this.InitializeForm);
             // 
             // Dashboard
             // 
