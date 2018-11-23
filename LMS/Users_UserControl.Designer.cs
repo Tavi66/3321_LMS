@@ -31,13 +31,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Enabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GivenName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Role = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
@@ -52,6 +45,15 @@
             this.cboRole = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnAddUser = new System.Windows.Forms.Button();
+            this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Enabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GivenName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoleCbo = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Graduate = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ResetPassword = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +70,9 @@
             this.GivenName,
             this.FamilyName,
             this.Year,
-            this.Role});
+            this.RoleCbo,
+            this.Graduate,
+            this.ResetPassword});
             this.dgvUsers.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvUsers.Location = new System.Drawing.Point(0, 0);
             this.dgvUsers.Name = "dgvUsers";
@@ -86,64 +90,13 @@
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // UserID
-            // 
-            this.UserID.HeaderText = "User ID";
-            this.UserID.Name = "UserID";
-            // 
-            // Enabled
-            // 
-            this.Enabled.HeaderText = "Enabled";
-            this.Enabled.Name = "Enabled";
-            this.Enabled.Width = 50;
-            // 
-            // UserName
-            // 
-            this.UserName.HeaderText = "Username";
-            this.UserName.Name = "UserName";
-            // 
-            // GivenName
-            // 
-            this.GivenName.HeaderText = "Given Name";
-            this.GivenName.Name = "GivenName";
-            this.GivenName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GivenName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // FamilyName
-            // 
-            this.FamilyName.HeaderText = "Family Name";
-            this.FamilyName.Name = "FamilyName";
-            this.FamilyName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.FamilyName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Year
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Year.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Year.HeaderText = "Year";
-            this.Year.Name = "Year";
-            this.Year.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Year.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Year.Width = 40;
-            // 
-            // Role
-            // 
-            this.Role.HeaderText = "Role";
-            this.Role.Items.AddRange(new object[] {
-            "Governor",
-            "Headmaster/Headmistress",
-            "Teacher",
-            "Student"});
-            this.Role.Name = "Role";
-            this.Role.Width = 160;
-            // 
             // txtUserName
             // 
             this.txtUserName.Location = new System.Drawing.Point(6, 49);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(100, 20);
             this.txtUserName.TabIndex = 2;
-            this.txtUserName.Text = "Gilderoy.Lockhart";
+            this.txtUserName.Text = "Remus.Lupin";
             // 
             // groupBox1
             // 
@@ -167,6 +120,7 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "New User";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // txtPassword
             // 
@@ -174,7 +128,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(100, 20);
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.Text = "GHPass";
+            this.txtPassword.Text = "RLPass";
             // 
             // txtGivenName
             // 
@@ -182,7 +136,7 @@
             this.txtGivenName.Name = "txtGivenName";
             this.txtGivenName.Size = new System.Drawing.Size(100, 20);
             this.txtGivenName.TabIndex = 4;
-            this.txtGivenName.Text = "Gilderoy";
+            this.txtGivenName.Text = "Remus";
             // 
             // txtFamilyName
             // 
@@ -190,7 +144,7 @@
             this.txtFamilyName.Name = "txtFamilyName";
             this.txtFamilyName.Size = new System.Drawing.Size(100, 20);
             this.txtFamilyName.TabIndex = 5;
-            this.txtFamilyName.Text = "Lockhart";
+            this.txtFamilyName.Text = "Lupin";
             // 
             // label1
             // 
@@ -266,6 +220,7 @@
             this.cboRole.Name = "cboRole";
             this.cboRole.Size = new System.Drawing.Size(121, 21);
             this.cboRole.TabIndex = 13;
+            this.cboRole.Text = "Teacher";
             // 
             // label6
             // 
@@ -285,6 +240,70 @@
             this.btnAddUser.Text = "Add User";
             this.btnAddUser.UseVisualStyleBackColor = true;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
+            // 
+            // UserID
+            // 
+            this.UserID.HeaderText = "User ID";
+            this.UserID.Name = "UserID";
+            // 
+            // Enabled
+            // 
+            this.Enabled.HeaderText = "Enabled";
+            this.Enabled.Name = "Enabled";
+            this.Enabled.Width = 50;
+            // 
+            // UserName
+            // 
+            this.UserName.HeaderText = "Username";
+            this.UserName.Name = "UserName";
+            // 
+            // GivenName
+            // 
+            this.GivenName.HeaderText = "Given Name";
+            this.GivenName.Name = "GivenName";
+            this.GivenName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.GivenName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // FamilyName
+            // 
+            this.FamilyName.HeaderText = "Family Name";
+            this.FamilyName.Name = "FamilyName";
+            this.FamilyName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.FamilyName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Year
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Year.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Year.HeaderText = "Year";
+            this.Year.Name = "Year";
+            this.Year.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Year.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Year.Width = 40;
+            // 
+            // RoleCbo
+            // 
+            this.RoleCbo.HeaderText = "Role";
+            this.RoleCbo.Items.AddRange(new object[] {
+            "Governor",
+            "Headmaster/Headmistress",
+            "Teacher",
+            "Student"});
+            this.RoleCbo.Name = "RoleCbo";
+            this.RoleCbo.Width = 160;
+            // 
+            // Graduate
+            // 
+            this.Graduate.HeaderText = "Graduate";
+            this.Graduate.Name = "Graduate";
+            this.Graduate.Width = 60;
+            // 
+            // ResetPassword
+            // 
+            this.ResetPassword.HeaderText = "ResetPassword";
+            this.ResetPassword.Name = "ResetPassword";
+            this.ResetPassword.Text = "ResetPassword";
+            this.ResetPassword.UseColumnTextForButtonValue = true;
             // 
             // Users_UserControl
             // 
@@ -307,13 +326,6 @@
 
         private System.Windows.Forms.DataGridView dgvUsers;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserID;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Enabled;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GivenName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Year;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Role;
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnAddUser;
@@ -328,5 +340,14 @@
         private System.Windows.Forms.TextBox txtFamilyName;
         private System.Windows.Forms.TextBox txtGivenName;
         private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserID;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Enabled;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GivenName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Year;
+        private System.Windows.Forms.DataGridViewComboBoxColumn RoleCbo;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Graduate;
+        private System.Windows.Forms.DataGridViewButtonColumn ResetPassword;
     }
 }

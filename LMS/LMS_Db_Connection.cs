@@ -206,9 +206,43 @@ namespace LMS
                 dbCmd.CommandType = CommandType.StoredProcedure;
                 dbCmd.Parameters.AddWithValue("@Id", Id);
                 dbCmd.Parameters.AddWithValue("@UserName", UserName);
-                dbCmd.Parameters.AddWithValue("@Password", UserName);
-                dbCmd.Parameters.AddWithValue("@GivenName", UserName);
-                dbCmd.Parameters.AddWithValue("@FamilyName", UserName);
+                dbCmd.Parameters.AddWithValue("@Password", Password);
+                dbCmd.Parameters.AddWithValue("@GivenName", GivenName);
+                dbCmd.Parameters.AddWithValue("@FamilyName", FamilyName);
+                if (Role != 4)
+                {
+                    dbCmd.Parameters.AddWithValue("@Year", DBNull.Value);
+                    dbCmd.Parameters["@Year"].IsNullable = true;
+                }
+                else
+                {
+                    dbCmd.Parameters.AddWithValue("@Year", Year);
+                }
+                dbCmd.Parameters.AddWithValue("@Role", Role);
+                dbConn.Open();
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                dbConn.Close();
+            }
+        }
+        public void Update_User(int Id, bool Enabled, String UserName, String GivenName, String FamilyName, int Year, int Role)
+        {
+            Debug.WriteLine(Id + " " + Enabled + " " + UserName + " " + GivenName + " " + FamilyName + " " + Year + " " + Role);
+            if (authenticated && userRole <= 2)
+            {
+                dbCmd = new SqlCommand("Update_User_SP", dbConn);
+                dbCmd.CommandType = CommandType.StoredProcedure;
+                dbCmd.Parameters.AddWithValue("@Id", Id);
+                dbCmd.Parameters.AddWithValue("@Enabled", Enabled);
+                dbCmd.Parameters.AddWithValue("@UserName", UserName);
+                dbCmd.Parameters.AddWithValue("@GivenName", GivenName);
+                dbCmd.Parameters.AddWithValue("@FamilyName", FamilyName);
                 if (Role != 4)
                 {
                     dbCmd.Parameters.AddWithValue("@Year", DBNull.Value);
@@ -270,6 +304,22 @@ namespace LMS
             }
 
             return DS;
+        }
+        public int getRoleIdFromDesc(String desc)
+        {
+            switch (desc)
+            {
+                case "Governor":
+                    return 1;
+                case "Headmaster/Headmistress":
+                    return 2;
+                case "Teacher":
+                    return 3;
+                case "Student":
+                    return 4;
+                default:
+                    return -1;
+            }
         }
     }
 }

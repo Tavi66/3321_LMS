@@ -12,10 +12,6 @@ namespace LMS
 {
     public partial class Dashboard : Form
     {
-        Login login;
-
-        
-
         public Dashboard()
         {
             InitializeComponent();
@@ -28,9 +24,15 @@ namespace LMS
             //change password button highlight
             usersButton.MouseEnter += OnMouseEnterUsersButton;
             usersButton.MouseLeave += OnMouseLeaveUsersButton;
+            
+        }
+
+        private void InitializeForm(object sender, EventArgs e)
+        {
             lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
             lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
         }
+
         //
         private void OnMouseEnterRegisterButton(object sender, EventArgs e)
         {
@@ -64,8 +66,6 @@ namespace LMS
             usersButton.BackColor = Color.Transparent;
             usersButton.ForeColor = Color.White;
         }
-        //Login login = new Login();
-        //private object LOGIN { get; set; }
         private int mode = 0;
 
         public void setMode(int privilege)
@@ -111,10 +111,10 @@ namespace LMS
             //need to find way to create only one instance of all forms.
             //maybe w/i program.cs
             //close dashboard form
-            login = new Login();
-            this.Close();
+            this.Hide();
             //this.Hide();
             //clear user login info.
+            
             login.ClearUserInfo();
             //show login form            
             login.Show();
@@ -191,7 +191,6 @@ namespace LMS
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-
             if (!contentPanel.Controls.Contains(StudentDashboard_UserControl.Instance))
             {
                 contentPanel.Controls.Add(StudentDashboard_UserControl.Instance);
