@@ -104,7 +104,6 @@ namespace LMS
             dbConn.Open();
             try
             {
-                Debug.WriteLine(userName + " " + password);
                 dbCmd = new SqlCommand("SELECT Id, Enabled, [Given Name], [Family Name], Year, Role FROM Users WHERE UserName='" + userName + "' AND Password ='" + password + "'", dbConn);
                 dbDr = dbCmd.ExecuteReader();
                 dbDr.Read();
@@ -161,7 +160,7 @@ namespace LMS
             if (authenticated && userRole <= 2)
             {
                 dbConn.Open();
-                dbCmd = new SqlCommand("SELECT Id, Enabled, UserName, [Given Name], [Family Name], Year, Role FROM Users", dbConn);
+                dbCmd = new SqlCommand("SELECT Users.Id, Users.Enabled, Users.UserName, Users.[Given Name], Users.[Family Name], Users.Year, Roles.[Desc] FROM Users, Roles WHERE Roles.Id=Users.Role", dbConn);
                 SqlDataAdapter DA = new SqlDataAdapter(dbCmd);
                 DS = new DataSet();
                 DA.Fill(DS);
@@ -178,15 +177,99 @@ namespace LMS
             }
             return DS;
         }
-        public void Enroll_Course(int userID, int courseID)
+        public void Enroll_Course(int courseID)
         {
+            if (authenticated && userRole == 4)
+            {
+                dbCmd = new SqlCommand("Enroll_Course_SP", dbConn);
+                dbCmd.CommandType = CommandType.StoredProcedure;
+                dbCmd.Parameters.AddWithValue("@userID", this.userID);
+                dbCmd.Parameters.AddWithValue("@courseID", courseID);
+                dbConn.Open();
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                dbConn.Close();
+            }
+        }
+
+        public void Add_User(int Id, String UserName, String Password, String GivenName, String FamilyName, int Year, int Role)
+        {
+            if (authenticated && userRole <= 2)
+            {
+                dbCmd = new SqlCommand("Add_User_SP", dbConn);
+                dbCmd.CommandType = CommandType.StoredProcedure;
+                dbCmd.Parameters.AddWithValue("@Id", Id);
+                dbCmd.Parameters.AddWithValue("@UserName", UserName);
+                dbCmd.Parameters.AddWithValue("@Password", UserName);
+                dbCmd.Parameters.AddWithValue("@GivenName", UserName);
+                dbCmd.Parameters.AddWithValue("@FamilyName", UserName);
+                if (Role != 4)
+                {
+                    dbCmd.Parameters.AddWithValue("@Year", DBNull.Value);
+                    dbCmd.Parameters["@Year"].IsNullable = true;
+                }
+                else
+                {
+                    dbCmd.Parameters.AddWithValue("@Year", Year);
+                }
+                dbCmd.Parameters.AddWithValue("@Role", Role);
+                dbConn.Open();
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                dbConn.Close();
+            }
+        }
+        public int getNextUserId(int Role)
+        {
+            int lastUserId;
+            dbCmd = new SqlCommand("SELECT Id FROM Users WHERE Id like '900" + Role + "%' ORDER BY Id DESC", dbConn);
             dbConn.Open();
-            dbCmd = new SqlCommand("Enroll_Course_SP", dbConn);
-            dbCmd.CommandType = CommandType.StoredProcedure;
-            dbCmd.Parameters.AddWithValue("@userID", userID);
-            dbCmd.Parameters.AddWithValue("@courseID", courseID);
-            dbCmd.ExecuteNonQuery();
+            dbDr = dbCmd.ExecuteReader();
+            dbDr.Read();
+            
+            if (int.TryParse(dbDr[0].ToString(), out lastUserId))
+            {
+                dbConn.Close();
+                return lastUserId+1;
+            }
             dbConn.Close();
+            return -1;  
+        }
+        public DataSet getEnrolledCourses()
+        {
+            DataSet DS = null;
+            if (authenticated && userRole == 4)
+            {
+                dbConn.Open();
+                dbCmd = new SqlCommand("Select Enrollments.courseId, Courses.Name from Enrollments, Courses WHERE userId='" +this.userID+"' and Courses.Id=Enrollments.CourseId", dbConn);
+                SqlDataAdapter DA = new SqlDataAdapter(dbCmd);
+                DS = new DataSet();
+                DA.Fill(DS);
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    this.ex = ex;
+                    DS = null;
+                }
+                dbConn.Close();
+            }
+
+            return DS;
         }
     }
 }
