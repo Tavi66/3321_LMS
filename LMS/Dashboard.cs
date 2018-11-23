@@ -14,6 +14,8 @@ namespace LMS
     {
         Login login;
 
+        
+
         public Dashboard()
         {
             InitializeComponent();
@@ -24,8 +26,10 @@ namespace LMS
             changePasswordButton.MouseEnter += OnMouseEnterChangePasswordButton;
             changePasswordButton.MouseLeave += OnMouseLeaveChangePasswordButton;
             //change password button highlight
-            assignmentsButton.MouseEnter += OnMouseEnterAssignmentsButton;
-            assignmentsButton.MouseLeave += OnMouseLeaveAssignmentsButton;
+            usersButton.MouseEnter += OnMouseEnterUsersButton;
+            usersButton.MouseLeave += OnMouseLeaveUsersButton;
+            lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
+            lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
         }
         //
         private void OnMouseEnterRegisterButton(object sender, EventArgs e)
@@ -50,15 +54,15 @@ namespace LMS
             changePasswordButton.ForeColor = Color.White;
         }
         //
-        private void OnMouseEnterAssignmentsButton(object sender, EventArgs e)
+        private void OnMouseEnterUsersButton(object sender, EventArgs e)
         {
-            assignmentsButton.BackColor = Color.Gold;
-            assignmentsButton.ForeColor = Color.Black;
+            usersButton.BackColor = Color.Gold;
+            usersButton.ForeColor = Color.Black;
         }
-        private void OnMouseLeaveAssignmentsButton(object sender, EventArgs e)
+        private void OnMouseLeaveUsersButton(object sender, EventArgs e)
         {
-            assignmentsButton.BackColor = Color.Transparent;
-            assignmentsButton.ForeColor = Color.White;
+            usersButton.BackColor = Color.Transparent;
+            usersButton.ForeColor = Color.White;
         }
         //Login login = new Login();
         //private object LOGIN { get; set; }
@@ -70,21 +74,19 @@ namespace LMS
             switch(mode)
             {
                 case 1: //super
+                    registerCoursesButton.Visible = false;
+                    usersButton.Visible = true;
                     break;
                 case 2: //admin
-                    adminPanel_visibleOn();
-                    ModifyPanel_visibleOn();
-                    //test data studentInfoTable
-                    stdInfoDataTable();
+                    registerCoursesButton.Visible = false;
+                    usersButton.Visible = true;
                     break;
                 case 3: //professor
-                    professorPanel_visibleOn();
-                    ModifyPanel_visibleOn();
                     //assignmentsDataTable();
                     break;
                 case 4: //student
-                    studentPanel_visibleOn();
-                    ModifyPanel_visibleOff();
+                    registerCoursesButton.Visible = true;
+                    usersButton.Visible = false;
                     break;
                 default: //invalid
                     break;
@@ -94,24 +96,16 @@ namespace LMS
         private void studentPanel_visibleOn()
         {
             registerCoursesButton.Visible = true;
-            assignmentsButton.Visible = true;
-            StudentDashInfo.Visible = true;
+            //StudentDashInfo.Visible = true;
         }
         private void professorPanel_visibleOn()
         {
-            assignmentsButton.Visible = true;
+            
         }
         private void adminPanel_visibleOn()
         {
-            StudentInfoGrid.Visible = true;
+            
         }
-        //sample PUBLIC to modify visibility of edit panel
-        private void ModifyPanel_visibleOn()
-        { ModifyPanel.Visible = true;  }
-        //off
-        private void ModifyPanel_visibleOff()
-        { ModifyPanel.Visible = false; StudentInfoGrid.ReadOnly = true;}
-
         private void logoutButton_Click(object sender, EventArgs e)
         {
             //need to find way to create only one instance of all forms.
@@ -134,9 +128,9 @@ namespace LMS
                     break;
                 case 2: //admin
                     //edit student info
-                    StudentInfoGrid.ReadOnly = false;
-                    StudentInfoGrid.AllowUserToAddRows = true;
-                    StudentInfoGrid.AllowUserToDeleteRows = true;
+                    //StudentInfoGrid.ReadOnly = false;
+                    //StudentInfoGrid.AllowUserToAddRows = true;
+                    //StudentInfoGrid.AllowUserToDeleteRows = true;
                     break;
                 case 3: //professor
                     break;
@@ -146,9 +140,6 @@ namespace LMS
                 default: //invalid
                     break;
             }
-
-            doneButton.Visible = true;
-            deleteButton.Visible = true;
         }
 
         private void doneButton_Click(object sender, EventArgs e)
@@ -159,7 +150,7 @@ namespace LMS
                     break;
                 case 2: //admin
                     //edit student info
-                    StudentInfoGrid.ReadOnly = true;
+                    //StudentInfoGrid.ReadOnly = true;
                     break;
                 case 3: //professor
                     break;
@@ -170,21 +161,6 @@ namespace LMS
                     break;
             }
             //save record to database?
-            doneButton.Visible = false;
-            deleteButton.Visible = false;
-        }
-
-        private void registerCoursesButton_Click(object sender, EventArgs e)
-        {
-            DataGridViewCheckBoxColumn dbColumn = new DataGridViewCheckBoxColumn();
-            //go to register courses form
-            StudentInfoGrid.DataSource = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0]; //Set the data source with info from database
-            StudentInfoGrid.Columns.Add(dbColumn); //new column=check box column
-            StudentInfoGrid.Columns[0].Visible = false; //Hide the course ID, will refrence this when enrolling user later
-            StudentInfoGrid.Columns[1].DisplayIndex = 2; //Class names listed last
-            StudentInfoGrid.Columns[2].DisplayIndex = 1; //Checkmark listed first
-            StudentInfoGrid.Columns[2].Width = 50; //make checkmark field less wide
-            StudentInfoGrid.Visible = true;
         }
 
         private void changePasswordButton_Click(object sender, EventArgs e)
@@ -195,32 +171,11 @@ namespace LMS
         DataTable studentInfoTable = new DataTable();
         DataTable createAssignmentsTable = new DataTable();
 
-        private void stdInfoDataTable()
-        {
-            //STUDENT INFO TABLE
-            //add columns
-            studentInfoTable.Columns.Add("Student", typeof(string));
-            studentInfoTable.Columns.Add("ID", typeof(int));
-            studentInfoTable.Columns.Add("Registered Courses", typeof(string));
-            //string or int
-            studentInfoTable.Columns.Add("Exam Scores", typeof(string));
-            studentInfoTable.Columns.Add("GPA", typeof(double));
-            //Student, ID, reg. courses, Exam Scores, GPA
-            //read in data here (if by file)
-            studentInfoTable.Rows.Add("Fred" + " " + "Weasley", 90043, "Charms" + Environment.NewLine + "Potions" + Environment.NewLine + "Herbology", "B+",3.0);
-            studentInfoTable.Rows.Add("George" + " " + "Weasley", 90044, "Divination" + Environment.NewLine + "Herbology", "B-", 2.75);
-            //StudentInfoGrid.DataSource = studentInfoTable;
-        }
-  
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            //currently delete one entry at time
-            int rowIndex = 0;
             switch (mode)
             {
                 case 2: //admin
-             rowIndex = StudentInfoGrid.CurrentCell.RowIndex;
-            StudentInfoGrid.Rows.RemoveAt(rowIndex);
                     break;
                 case 3: //professor
                     //need to separate two panels with the delete button
@@ -234,24 +189,39 @@ namespace LMS
             }
         }
 
-        //Add click event handler to assignments button
-        private void assignmentsButton_Click(object sender, EventArgs e)
+        private void btnHome_Click(object sender, EventArgs e)
         {
-            Assignments assignments = new Assignments();
-            assignments.setMode(mode);
-            this.Hide();
-            assignments.Show();
+
+            if (!contentPanel.Controls.Contains(StudentDashboard_UserControl.Instance))
+            {
+                contentPanel.Controls.Add(StudentDashboard_UserControl.Instance);
+                StudentDashboard_UserControl.Instance.Dock = DockStyle.Fill;
+            }
+            StudentDashboard_UserControl.Instance.BringToFront();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void registerButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < StudentInfoGrid.Rows.Count; i++)
+            if (LMS_Db_Connection.Instance.UserRole == 4)
             {
-                if (StudentInfoGrid.Rows[i].Cells[0].Value != null) //If not checked, value will be null, not false
+                if (!contentPanel.Controls.Contains(RegisterCourses_UserControl.Instance))
                 {
-                    //MessageBox.Show(StudentInfoGrid.Rows[i].Cells[0].Value.ToString()); //this should be true since it wasn't null
-                    //To do: call database method to enroll user in class
+                    contentPanel.Controls.Add(RegisterCourses_UserControl.Instance);
+                    RegisterCourses_UserControl.Instance.Dock = DockStyle.Fill;
                 }
+                RegisterCourses_UserControl.Instance.BringToFront();
+            }
+        }
+        private void usersButton_Click(object sender, EventArgs e)
+        {
+            if (LMS_Db_Connection.Instance.UserRole <= 2)
+            {
+                if (!contentPanel.Controls.Contains(Users_UserControl.Instance))
+                {
+                    contentPanel.Controls.Add(Users_UserControl.Instance);
+                    Users_UserControl.Instance.Dock = DockStyle.Fill;
+                }
+                Users_UserControl.Instance.BringToFront();
             }
         }
     }
