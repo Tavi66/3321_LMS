@@ -61,7 +61,7 @@ namespace LMS
         {
             for (int i = 0; i < dgvEnrollCourses.Rows.Count; i++)
             {
-                if (dgvEnrollCourses.Rows[i].Cells[0].Value != null) //If not checked, value will be null, not false
+                if ((bool)dgvEnrollCourses.Rows[i].Cells[0].Value == true) //
                 {
                     if (cboUsers.Text != String.Empty)
                     {
@@ -84,17 +84,26 @@ namespace LMS
             dashboard.btnHome.PerformClick();
         }
 
+        public void refreshCourseRegistrationDataTable()
+        {
+            dgvEnrollCourses.Rows.Clear();
+            dgvEnrollCourses.Refresh();
+            DataTable dashboardTable = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0];
+            if (LMS_Db_Connection.Instance.UserRole == 2 || LMS_Db_Connection.Instance.UserRole == 4)
+            {
+                for (int x = 0; x < dashboardTable.Rows.Count; x++)
+                {
+                    dgvEnrollCourses.Rows.Add(
+                        LMS_Db_Connection.Instance.IsEnrolled(dashboardTable.Rows[x].Field<Int32>(0)),
+                        dashboardTable.Rows[x].Field<Int32>(0),
+                        dashboardTable.Rows[x].Field<String>(1)
+                    );
+                }
+            }
+        }
         private void RegisterCourses_UserControl_Load(object sender, EventArgs e)
         {
-            cbColumn = new DataGridViewCheckBoxColumn();
-            dgvEnrollCourses.DataSource = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0]; //Set the data source with info from database
-            if (dgvEnrollCourses.Columns[0] != cbColumn)
-            {
-                dgvEnrollCourses.Columns.Insert(0, cbColumn); //new column=check box column
-                dgvEnrollCourses.Columns[0].Width = 50; //make checkmark field less wide
-            }
-            dgvEnrollCourses.Columns[1].Visible = false; //Hide the course ID, will refrence this when enrolling user later
-            dgvEnrollCourses.Columns[2].ReadOnly = true;
+            
         }
 
         private void dgvEnrollCourses_CellContentClick(object sender, DataGridViewCellEventArgs e)
