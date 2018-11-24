@@ -24,7 +24,8 @@ namespace LMS
             //change password button highlight
             usersButton.MouseEnter += OnMouseEnterUsersButton;
             usersButton.MouseLeave += OnMouseLeaveUsersButton;
-            
+            usersButton.Visible = false;
+            setMode(0);
         }
 
         private void InitializeForm(object sender, EventArgs e)
@@ -73,94 +74,59 @@ namespace LMS
             mode = privilege;
             switch(mode)
             {
+                case 0:
+                    lblGivenName.Text = "Please";
+                    lblFamilyName.Text = "Log In";
+                    registerCoursesButton.Visible = false;
+                    btnHome.Visible = false;
+                    changePasswordButton.Visible = false;
+                    usersButton.Visible = false;
+                    login_BringToFront();
+                    break;
                 case 1: //super
+                    lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
+                    lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
                     registerCoursesButton.Visible = false;
                     usersButton.Visible = true;
+                    changePasswordButton.Visible = true;
+                    btnHome.Visible = true;
+                    Users_BringToFront();
                     break;
                 case 2: //admin
-                    registerCoursesButton.Visible = false;
+                    lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
+                    lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
+                    registerCoursesButton.Visible = true;
                     usersButton.Visible = true;
+                    changePasswordButton.Visible = true;
+                    btnHome.Visible = true;
+                    Users_BringToFront();
                     break;
                 case 3: //professor
-                    //assignmentsDataTable();
+                    lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
+                    lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
+                    changePasswordButton.Visible = true;
+                    btnHome.Visible = true;
+                    btnHome.PerformClick();
                     break;
                 case 4: //student
+                    lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
+                    lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
                     registerCoursesButton.Visible = true;
                     usersButton.Visible = false;
+                    changePasswordButton.Visible = true;
+                    btnHome.Visible = true;
+                    StudentDashboard_BringToFront();
                     break;
                 default: //invalid
                     break;
             }
         }
 
-        private void studentPanel_visibleOn()
-        {
-            registerCoursesButton.Visible = true;
-            //StudentDashInfo.Visible = true;
-        }
-        private void professorPanel_visibleOn()
-        {
-            
-        }
-        private void adminPanel_visibleOn()
-        {
-            
-        }
+       
         private void logoutButton_Click(object sender, EventArgs e)
         {
-            //need to find way to create only one instance of all forms.
-            //maybe w/i program.cs
-            //close dashboard form
-            this.Hide();
-            //this.Hide();
             //clear user login info.
-            
-            login.ClearUserInfo();
-            //show login form            
-            login.Show();
-        }
-
-        private void editButton_Click(object sender, EventArgs e)
-        {
-            switch (mode)
-            {
-                case 1: //admin
-                    break;
-                case 2: //admin
-                    //edit student info
-                    //StudentInfoGrid.ReadOnly = false;
-                    //StudentInfoGrid.AllowUserToAddRows = true;
-                    //StudentInfoGrid.AllowUserToDeleteRows = true;
-                    break;
-                case 3: //professor
-                    break;
-                case 4: //student
-                    //view registered courses
-                    break;
-                default: //invalid
-                    break;
-            }
-        }
-
-        private void doneButton_Click(object sender, EventArgs e)
-        {
-            switch (mode)
-            {
-                case 1: //super
-                    break;
-                case 2: //admin
-                    //edit student info
-                    //StudentInfoGrid.ReadOnly = true;
-                    break;
-                case 3: //professor
-                    break;
-                case 4: //student
-                    //view registered courses
-                    break;
-                default: //invalid
-                    break;
-            }
-            //save record to database?
+            setMode(0);
         }
 
         private void changePasswordButton_Click(object sender, EventArgs e)
@@ -171,25 +137,25 @@ namespace LMS
         DataTable studentInfoTable = new DataTable();
         DataTable createAssignmentsTable = new DataTable();
 
-        private void deleteButton_Click(object sender, EventArgs e)
+        private void login_BringToFront()
         {
-            switch (mode)
+            if (!contentPanel.Controls.Contains(Login_UserControl.Instance))
             {
-                case 2: //admin
-                    break;
-                case 3: //professor
-                    //need to separate two panels with the delete button
-             //rowIndex = createAssignmentsGrid.CurrentCell.RowIndex;
-             //       createAssignmentsGrid.Rows.RemoveAt(rowIndex);
-                    break;
-                case 4: //student
-                    break;
-                default: //invalid
-                    break;
+                contentPanel.Controls.Add(Login_UserControl.Instance);
+                Login_UserControl.Instance.Dock = DockStyle.Fill;
             }
+            Login_UserControl.Instance.BringToFront();
         }
-
-        private void btnHome_Click(object sender, EventArgs e)
+        private void Users_BringToFront()
+        {
+            if (!contentPanel.Controls.Contains(Users_UserControl.Instance))
+            {
+                contentPanel.Controls.Add(Users_UserControl.Instance);
+                Users_UserControl.Instance.Dock = DockStyle.Fill;
+            }
+            Users_UserControl.Instance.BringToFront();
+        }
+        private void StudentDashboard_BringToFront()
         {
             if (!contentPanel.Controls.Contains(StudentDashboard_UserControl.Instance))
             {
@@ -198,16 +164,50 @@ namespace LMS
             }
             StudentDashboard_UserControl.Instance.BringToFront();
         }
+        private void TeacherDashboard_BringToFront()
+        {
+            if (!contentPanel.Controls.Contains(TeacherDashboard_UserControl.Instance))
+            {
+                contentPanel.Controls.Add(TeacherDashboard_UserControl.Instance);
+                TeacherDashboard_UserControl.Instance.Dock = DockStyle.Fill;
+            }
+            TeacherDashboard_UserControl.Instance.BringToFront();
+        }
+        public void Class_BringToFront()
+        {
+            if (!contentPanel.Controls.Contains(Class_UserControl.Instance))
+            {
+                contentPanel.Controls.Add(Class_UserControl.Instance);
+                Class_UserControl.Instance.Dock = DockStyle.Fill;
+            }
+            Class_UserControl.Instance.BringToFront();
+            Class_UserControl.Instance.refreshAssignmentsDataTable();
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            if (mode == 3)
+            {
+                TeacherDashboard_BringToFront();
+                TeacherDashboard_UserControl.Instance.Update_Dashboard();
+            }
+            else if (mode == 4)
+            {
+                StudentDashboard_BringToFront();
+                StudentDashboard_UserControl.Instance.Update_Dashboard();
+            }
+        }
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            if (LMS_Db_Connection.Instance.UserRole == 4)
+            if (LMS_Db_Connection.Instance.UserRole == 2 || LMS_Db_Connection.Instance.UserRole == 4)
             {
                 if (!contentPanel.Controls.Contains(RegisterCourses_UserControl.Instance))
                 {
                     contentPanel.Controls.Add(RegisterCourses_UserControl.Instance);
                     RegisterCourses_UserControl.Instance.Dock = DockStyle.Fill;
                 }
+                RegisterCourses_UserControl.Instance.UpdateUsers();
                 RegisterCourses_UserControl.Instance.BringToFront();
             }
         }
@@ -222,6 +222,11 @@ namespace LMS
                 }
                 Users_UserControl.Instance.BringToFront();
             }
+        }
+
+        private void navPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

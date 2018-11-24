@@ -98,6 +98,105 @@ namespace LMS
                 return instance;
             }
         }
+
+        public void TurnInAssignment(int assignmentID)
+        {
+            Debug.WriteLine("Turning in assignment " + assignmentID);
+            if (authenticated && userRole == 4)
+            {
+                dbCmd = new SqlCommand("TurnIn_Assignment_SP", dbConn);
+                dbCmd.CommandType = CommandType.StoredProcedure;
+                dbCmd.Parameters.AddWithValue("@AssignmentId", assignmentID);
+                dbCmd.Parameters.AddWithValue("@UserId", this.UserID);
+                dbConn.Open();
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                dbConn.Close();
+            }
+        }
+        public bool AssignmentTurnedIn(int assignmentID)
+        {
+            dbConn.Open();
+            dbCmd = new SqlCommand("SELECT Grade FROM Assignments WHERE AssignmentId='" + assignmentID + "' AND UserId='" + this.UserID + "'", dbConn);
+            dbDr = dbCmd.ExecuteReader();
+            if (dbDr.Read())
+            {
+                dbConn.Close();
+                return true;
+            }
+            dbConn.Close();
+            return false;
+        }
+
+        public bool AssignmentGraded(int assignmentID)
+        {
+            dbConn.Open();
+            dbCmd = new SqlCommand("SELECT Grade FROM Assignments WHERE AssignmentId='" + assignmentID + "' AND UserId='" + this.UserID + "'", dbConn);
+            try
+            {
+                dbDr = dbCmd.ExecuteReader();
+                if (dbDr.Read())
+                {
+                    dbConn.Close();
+                    if ((int)dbDr[0] != -1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            dbConn.Close();
+            return false;
+        }
+        public int GetAssignmentGrade(int assignmentID)
+        {
+            dbConn.Open();
+            dbCmd = new SqlCommand("SELECT Grade FROM Assignments WHERE AssignmentId='" + assignmentID + "' AND UserId='" + this.UserID + "'", dbConn);
+            dbDr = dbCmd.ExecuteReader();
+            if (dbDr.Read())
+            {
+                dbConn.Close();
+                return (int)dbDr[0];
+            }
+            dbConn.Close();
+            return 0;
+        }
+
+        public void CreateAssignment(int courseID, int totalPoints, string desc)
+        {
+            Debug.WriteLine(courseID);
+            if (authenticated && (userRole == 2 || userRole == 3))
+            {
+                dbCmd = new SqlCommand("Create_Assignment_SP", dbConn);
+                dbCmd.CommandType = CommandType.StoredProcedure;
+                dbCmd.Parameters.AddWithValue("@CourseId", courseID);
+                dbCmd.Parameters.AddWithValue("@TotalPoints", totalPoints);
+                dbCmd.Parameters.AddWithValue("@Description", desc);
+                dbConn.Open();
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                dbConn.Close();
+            }
+        }
+
+
+
         public bool authenticateUser(String userName, String password)
         {
             bool authenticated = false;
@@ -136,8 +235,14 @@ namespace LMS
         }
         public DataSet getEligibleClasses()
         {
+            String sqlCmd = "SELECT Id, Name FROM Courses";
             dbConn.Open();
-            dbCmd = new SqlCommand("SELECT Id, Name FROM Courses WHERE Year='" + this.userYear + "'", dbConn);
+            if (this.UserRole == 4)
+            {
+                sqlCmd += " WHERE Year = '" + this.userYear + "'";
+            }
+
+            dbCmd = new SqlCommand(sqlCmd, dbConn);
             SqlDataAdapter DA = new SqlDataAdapter(dbCmd);
             DataSet DS = new DataSet();
             DA.Fill(DS);
@@ -177,13 +282,19 @@ namespace LMS
             }
             return DS;
         }
+
         public void Enroll_Course(int courseID)
         {
-            if (authenticated && userRole == 4)
+            Enroll_Course(this.UserID, courseID);
+        }
+
+        public void Enroll_Course(int userID, int courseID)
+        {
+            if (authenticated && (userRole == 4 || userRole == 2) )
             {
                 dbCmd = new SqlCommand("Enroll_Course_SP", dbConn);
                 dbCmd.CommandType = CommandType.StoredProcedure;
-                dbCmd.Parameters.AddWithValue("@userID", this.userID);
+                dbCmd.Parameters.AddWithValue("@userID", userID);
                 dbCmd.Parameters.AddWithValue("@courseID", courseID);
                 dbConn.Open();
                 try
@@ -197,7 +308,7 @@ namespace LMS
                 dbConn.Close();
             }
         }
-
+                
         public void Add_User(int Id, String UserName, String Password, String GivenName, String FamilyName, int Year, int Role)
         {
             if (authenticated && userRole <= 2)
@@ -284,7 +395,7 @@ namespace LMS
         public DataSet getEnrolledCourses()
         {
             DataSet DS = null;
-            if (authenticated && userRole == 4)
+            if (authenticated && userRole >= 2)
             {
                 dbConn.Open();
                 dbCmd = new SqlCommand("Select Enrollments.courseId, Courses.Name from Enrollments, Courses WHERE userId='" +this.userID+"' and Courses.Id=Enrollments.CourseId", dbConn);
@@ -298,14 +409,39 @@ namespace LMS
                 catch (Exception ex)
                 {
                     this.ex = ex;
+                    Debug.WriteLine(ex);
                     DS = null;
                 }
                 dbConn.Close();
             }
-
             return DS;
         }
-        public int getRoleIdFromDesc(String desc)
+
+        public DataSet getAssignmentsForClass(int courseId)
+        {
+            DataSet DS = null;
+            if (authenticated && userRole >= 1)
+            {
+                dbConn.Open();
+                dbCmd = new SqlCommand("Select Id, TotalPoints, Description FROM Assignments WHERE CourseId='" + courseId + "'", dbConn);
+                SqlDataAdapter DA = new SqlDataAdapter(dbCmd);
+                DS = new DataSet();
+                DA.Fill(DS);
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    this.ex = ex;
+                    Debug.WriteLine(ex);
+                    DS = null;
+                }
+                dbConn.Close();
+            }
+            return DS;
+        }
+        public int getRoleIdFromDesc(string desc)
         {
             switch (desc)
             {
@@ -318,7 +454,7 @@ namespace LMS
                 case "Student":
                     return 4;
                 default:
-                    return -1;
+                    return 0;
             }
         }
     }
