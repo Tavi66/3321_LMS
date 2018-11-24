@@ -60,6 +60,7 @@ namespace LMS
             for (int x = 0; x < dgvUsers.RowCount; x++)
             {
                 int year = -1;
+                DataGridViewComboBoxCell cboCell = (DataGridViewComboBoxCell)dgvUsers.Rows[x].Cells[6];
                 if (dgvUsers.Rows[x].Cells[5].Value != null)
                 {
                     int.TryParse(dgvUsers.Rows[x].Cells[5].Value.ToString(), out year);

@@ -13,6 +13,7 @@ namespace LMS
     public partial class StudentDashboard_UserControl : UserControl
     {
         DataGridViewButtonColumn btnCol = null;
+        Dashboard dashboard = (Dashboard)Application.OpenForms["Dashboard"];
 
         private static StudentDashboard_UserControl _instance;
 
@@ -32,12 +33,7 @@ namespace LMS
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void StudentDashboard_UserControl_Load(object sender, EventArgs e)
+        public void Update_Dashboard()
         {
             if (LMS_Db_Connection.Instance.getEnrolledCourses() != null)
             {
@@ -56,6 +52,10 @@ namespace LMS
             }
             //to do: else say not enrolled in anything
         }
+        private void StudentDashboard_UserControl_Load(object sender, EventArgs e)
+        {
+            
+        }
 
         private void StudentDashInfo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -64,7 +64,9 @@ namespace LMS
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                MessageBox.Show("Going to class: " + StudentDashInfo.Rows[e.RowIndex].Cells[1].Value.ToString());
+                Class_UserControl.Instance.CourseDesc = StudentDashInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
+                Class_UserControl.Instance.CourseId = int.Parse(StudentDashInfo.Rows[e.RowIndex].Cells[0].Value.ToString());
+                dashboard.Class_BringToFront();
             }
         }
     }
