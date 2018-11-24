@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.TeacherDashInfo = new System.Windows.Forms.DataGridView();
+            this.CourseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CourseDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GoToClass = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.TeacherDashInfo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -37,6 +40,10 @@
             this.TeacherDashInfo.AllowUserToAddRows = false;
             this.TeacherDashInfo.AllowUserToDeleteRows = false;
             this.TeacherDashInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TeacherDashInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CourseId,
+            this.CourseDesc,
+            this.GoToClass});
             this.TeacherDashInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.TeacherDashInfo.Location = new System.Drawing.Point(0, 37);
             this.TeacherDashInfo.Name = "TeacherDashInfo";
@@ -44,6 +51,27 @@
             this.TeacherDashInfo.Size = new System.Drawing.Size(900, 544);
             this.TeacherDashInfo.TabIndex = 0;
             this.TeacherDashInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TeacherDashInfo_CellContentClick);
+            // 
+            // CourseId
+            // 
+            this.CourseId.HeaderText = "Course ID";
+            this.CourseId.Name = "CourseId";
+            this.CourseId.ReadOnly = true;
+            this.CourseId.Visible = false;
+            // 
+            // CourseDesc
+            // 
+            this.CourseDesc.HeaderText = "Course Desc";
+            this.CourseDesc.Name = "CourseDesc";
+            this.CourseDesc.ReadOnly = true;
+            // 
+            // GoToClass
+            // 
+            this.GoToClass.HeaderText = "Go To Class";
+            this.GoToClass.Name = "GoToClass";
+            this.GoToClass.ReadOnly = true;
+            this.GoToClass.Text = "Go To Class";
+            this.GoToClass.UseColumnTextForButtonValue = true;
             // 
             // TeacherDashboard_UserControl
             // 
@@ -61,5 +89,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView TeacherDashInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CourseId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CourseDesc;
+        private System.Windows.Forms.DataGridViewButtonColumn GoToClass;
     }
 }

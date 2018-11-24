@@ -12,6 +12,7 @@ namespace LMS
 {
     public partial class Class_UserControl : UserControl
     {
+        Dashboard dashboard = (Dashboard)Application.OpenForms["Dashboard"];
         private static Class_UserControl _instance;
         private int courseId;
         private string courseDesc;
@@ -128,9 +129,17 @@ namespace LMS
 
         private void dgvAssignments_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 4) //Grade assignment column
+            {
+                Grades_UserControl.Instance.CourseId = this.courseId;
+                Grades_UserControl.Instance.AssignmentId = (int)dgvAssignments.Rows[e.RowIndex].Cells[0].Value;
+                Grades_UserControl.Instance.AssignmentDesc = dgvAssignments.Rows[e.RowIndex].Cells[0].Value.ToString();
+                dashboard.Grades_BringToFront();   
+            }
             if (e.RowIndex >= 0 && e.ColumnIndex == 6) //Turn in column
             {
                 LMS_Db_Connection.Instance.TurnInAssignment((int)dgvAssignments.Rows[e.RowIndex].Cells[0].Value);
+                MessageBox.Show("Assignment turned in.");
             }
         }
     }
