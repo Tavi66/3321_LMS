@@ -33,6 +33,9 @@
             this.txtGPA = new System.Windows.Forms.TextBox();
             this.txtYear = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.CourseID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CourseDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GoToClass = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.StudentDashInfo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,6 +44,10 @@
             this.StudentDashInfo.AllowUserToAddRows = false;
             this.StudentDashInfo.AllowUserToDeleteRows = false;
             this.StudentDashInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.StudentDashInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CourseID,
+            this.CourseDesc,
+            this.GoToClass});
             this.StudentDashInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.StudentDashInfo.Location = new System.Drawing.Point(0, 30);
             this.StudentDashInfo.Name = "StudentDashInfo";
@@ -83,6 +90,27 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Year:";
             // 
+            // CourseID
+            // 
+            this.CourseID.HeaderText = "CourseID";
+            this.CourseID.Name = "CourseID";
+            this.CourseID.ReadOnly = true;
+            this.CourseID.Visible = false;
+            // 
+            // CourseDesc
+            // 
+            this.CourseDesc.HeaderText = "Course Desc";
+            this.CourseDesc.Name = "CourseDesc";
+            this.CourseDesc.ReadOnly = true;
+            // 
+            // GoToClass
+            // 
+            this.GoToClass.HeaderText = "Go To Class";
+            this.GoToClass.Name = "GoToClass";
+            this.GoToClass.ReadOnly = true;
+            this.GoToClass.Text = "Go To Class";
+            this.GoToClass.UseColumnTextForButtonValue = true;
+            // 
             // StudentDashboard_UserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -108,5 +136,8 @@
         private System.Windows.Forms.TextBox txtGPA;
         private System.Windows.Forms.TextBox txtYear;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CourseID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CourseDesc;
+        private System.Windows.Forms.DataGridViewButtonColumn GoToClass;
     }
 }

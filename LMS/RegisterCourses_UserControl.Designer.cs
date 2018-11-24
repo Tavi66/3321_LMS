@@ -31,6 +31,9 @@
             this.dgvEnrollCourses = new System.Windows.Forms.DataGridView();
             this.btnEnroll = new System.Windows.Forms.Button();
             this.cboUsers = new System.Windows.Forms.ComboBox();
+            this.Enroll = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CourseID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CourseDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEnrollCourses)).BeginInit();
             this.SuspendLayout();
             // 
@@ -39,6 +42,10 @@
             this.dgvEnrollCourses.AllowUserToAddRows = false;
             this.dgvEnrollCourses.AllowUserToDeleteRows = false;
             this.dgvEnrollCourses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEnrollCourses.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Enroll,
+            this.CourseID,
+            this.CourseDesc});
             this.dgvEnrollCourses.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvEnrollCourses.Location = new System.Drawing.Point(0, 0);
             this.dgvEnrollCourses.Name = "dgvEnrollCourses";
@@ -64,6 +71,22 @@
             this.cboUsers.Size = new System.Drawing.Size(121, 21);
             this.cboUsers.TabIndex = 2;
             // 
+            // Enroll
+            // 
+            this.Enroll.HeaderText = "Enroll";
+            this.Enroll.Name = "Enroll";
+            // 
+            // CourseID
+            // 
+            this.CourseID.HeaderText = "CourseID";
+            this.CourseID.Name = "CourseID";
+            this.CourseID.Visible = false;
+            // 
+            // CourseDesc
+            // 
+            this.CourseDesc.HeaderText = "Course Desc";
+            this.CourseDesc.Name = "CourseDesc";
+            // 
             // RegisterCourses_UserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,5 +107,8 @@
         private System.Windows.Forms.DataGridView dgvEnrollCourses;
         private System.Windows.Forms.Button btnEnroll;
         private System.Windows.Forms.ComboBox cboUsers;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Enroll;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CourseID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CourseDesc;
     }
 }

@@ -115,7 +115,7 @@ namespace LMS
                     usersButton.Visible = false;
                     changePasswordButton.Visible = true;
                     btnHome.Visible = true;
-                    StudentDashboard_BringToFront();
+                    btnHome.PerformClick();
                     break;
                 default: //invalid
                     break;
@@ -184,17 +184,27 @@ namespace LMS
             Class_UserControl.Instance.refreshAssignmentsDataTable();
         }
 
+        public void Grades_BringToFront()
+        {
+            if (!contentPanel.Controls.Contains(Grades_UserControl.Instance))
+            {
+                contentPanel.Controls.Add(Grades_UserControl.Instance);
+                Grades_UserControl.Instance.Dock = DockStyle.Fill;
+            }
+            Grades_UserControl.Instance.BringToFront();
+            Grades_UserControl.Instance.refreshGradesDataTable();
+        }
         private void btnHome_Click(object sender, EventArgs e)
         {
             if (mode == 3)
             {
                 TeacherDashboard_BringToFront();
-                TeacherDashboard_UserControl.Instance.Update_Dashboard();
+                TeacherDashboard_UserControl.Instance.refreshTeacherDashboardDataTable();
             }
             else if (mode == 4)
             {
                 StudentDashboard_BringToFront();
-                StudentDashboard_UserControl.Instance.Update_Dashboard();
+                StudentDashboard_UserControl.Instance.refreshStudentDashboardDataTable();
             }
         }
 
@@ -208,6 +218,7 @@ namespace LMS
                     RegisterCourses_UserControl.Instance.Dock = DockStyle.Fill;
                 }
                 RegisterCourses_UserControl.Instance.UpdateUsers();
+                RegisterCourses_UserControl.Instance.refreshCourseRegistrationDataTable();
                 RegisterCourses_UserControl.Instance.BringToFront();
             }
         }

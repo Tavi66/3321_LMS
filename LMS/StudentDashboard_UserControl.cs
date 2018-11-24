@@ -12,7 +12,6 @@ namespace LMS
 {
     public partial class StudentDashboard_UserControl : UserControl
     {
-        DataGridViewButtonColumn btnCol = null;
         Dashboard dashboard = (Dashboard)Application.OpenForms["Dashboard"];
 
         private static StudentDashboard_UserControl _instance;
@@ -33,24 +32,21 @@ namespace LMS
             InitializeComponent();
         }
 
-        public void Update_Dashboard()
+        public void refreshStudentDashboardDataTable()
         {
-            if (LMS_Db_Connection.Instance.getEnrolledCourses() != null)
+            StudentDashInfo.Rows.Clear();
+            StudentDashInfo.Refresh();
+            DataTable dashboardTable = LMS_Db_Connection.Instance.getEnrolledCourses().Tables[0];
+            if (LMS_Db_Connection.Instance.UserRole == 4)
             {
-                StudentDashInfo.DataSource = LMS_Db_Connection.Instance.getEnrolledCourses().Tables[0]; //Set the data source with info from database
-                StudentDashInfo.Columns[0].Visible = false;
-                StudentDashInfo.Columns[1].HeaderText = "Enrolled Courses";
-                if (btnCol == null)
+                for (int x = 0; x < dashboardTable.Rows.Count; x++)
                 {
-                    btnCol = new DataGridViewButtonColumn();
-                    btnCol.Name = "Go To Class";
-                    btnCol.Text = "Go To Class";
-                    btnCol.UseColumnTextForButtonValue = true;
-                    StudentDashInfo.Columns.Add(btnCol);
+                    StudentDashInfo.Rows.Add(
+                        dashboardTable.Rows[x].Field<Int32>(0),
+                        dashboardTable.Rows[x].Field<String>(1)
+                    );
                 }
-                StudentDashInfo.Visible = true;
             }
-            //to do: else say not enrolled in anything
         }
         private void StudentDashboard_UserControl_Load(object sender, EventArgs e)
         {
