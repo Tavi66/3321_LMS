@@ -1,0 +1,65 @@
+﻿namespace LMS
+{
+    partial class TeacherDashboard_UserControl
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.TeacherDashInfo = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.TeacherDashInfo)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // TeacherDashInfo
+            // 
+            this.TeacherDashInfo.AllowUserToAddRows = false;
+            this.TeacherDashInfo.AllowUserToDeleteRows = false;
+            this.TeacherDashInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TeacherDashInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TeacherDashInfo.Location = new System.Drawing.Point(0, 37);
+            this.TeacherDashInfo.Name = "TeacherDashInfo";
+            this.TeacherDashInfo.ReadOnly = true;
+            this.TeacherDashInfo.Size = new System.Drawing.Size(900, 544);
+            this.TeacherDashInfo.TabIndex = 0;
+            this.TeacherDashInfo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TeacherDashInfo_CellContentClick);
+            // 
+            // TeacherDashboard_UserControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.TeacherDashInfo);
+            this.Name = "TeacherDashboard_UserControl";
+            this.Size = new System.Drawing.Size(900, 581);
+            this.Load += new System.EventHandler(this.TeacherDashboard_UserControl_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.TeacherDashInfo)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.DataGridView TeacherDashInfo;
+    }
+}

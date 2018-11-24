@@ -48,7 +48,7 @@
             this.loginPanel.Controls.Add(this.usernameLabel);
             this.loginPanel.Controls.Add(this.passwordEntry);
             this.loginPanel.Controls.Add(this.usernameEntry);
-            this.loginPanel.Location = new System.Drawing.Point(452, 182);
+            this.loginPanel.Location = new System.Drawing.Point(322, 136);
             this.loginPanel.Margin = new System.Windows.Forms.Padding(2);
             this.loginPanel.Name = "loginPanel";
             this.loginPanel.Size = new System.Drawing.Size(258, 256);
@@ -92,6 +92,7 @@
             this.loginButton.TabIndex = 3;
             this.loginButton.Text = "LOGIN";
             this.loginButton.UseVisualStyleBackColor = false;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // usernameLabel
             // 
@@ -112,7 +113,7 @@
             this.passwordEntry.PasswordChar = '*';
             this.passwordEntry.Size = new System.Drawing.Size(188, 20);
             this.passwordEntry.TabIndex = 2;
-            this.passwordEntry.Text = "ADPass";
+            this.passwordEntry.Text = "SSPass";
             // 
             // usernameEntry
             // 
@@ -122,7 +123,7 @@
             this.usernameEntry.Name = "usernameEntry";
             this.usernameEntry.Size = new System.Drawing.Size(188, 20);
             this.usernameEntry.TabIndex = 1;
-            this.usernameEntry.Text = "Albus.Dumbledore";
+            this.usernameEntry.Text = "Severus.Snape";
             // 
             // Login_UserControl
             // 
@@ -130,7 +131,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.loginPanel);
             this.Name = "Login_UserControl";
-            this.Size = new System.Drawing.Size(1163, 620);
+            this.Size = new System.Drawing.Size(900, 581);
             this.loginPanel.ResumeLayout(false);
             this.loginPanel.PerformLayout();
             this.ResumeLayout(false);

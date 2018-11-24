@@ -60,11 +60,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class_UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Class_UserControl.Designer.cs">
+      <DependentUpon>Class_UserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dashboard.Designer.cs">
       <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grades_UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grades_UserControl.Designer.cs">
+      <DependentUpon>Grades_UserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="LMS_Db_Connection.cs" />
     <Compile Include="Login_UserControl.cs">
@@ -87,6 +99,12 @@
     <Compile Include="StudentDashboard_UserControl.Designer.cs">
       <DependentUpon>StudentDashboard_UserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="TeacherDashboard_UserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TeacherDashboard_UserControl.Designer.cs">
+      <DependentUpon>TeacherDashboard_UserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <Compile Include="Users_UserControl.cs">
       <SubType>UserControl</SubType>
@@ -94,8 +112,14 @@
     <Compile Include="Users_UserControl.Designer.cs">
       <DependentUpon>Users_UserControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Class_UserControl.resx">
+      <DependentUpon>Class_UserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grades_UserControl.resx">
+      <DependentUpon>Grades_UserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login_UserControl.resx">
       <DependentUpon>Login_UserControl.cs</DependentUpon>
@@ -114,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StudentDashboard_UserControl.resx">
       <DependentUpon>StudentDashboard_UserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeacherDashboard_UserControl.resx">
+      <DependentUpon>TeacherDashboard_UserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users_UserControl.resx">
       <DependentUpon>Users_UserControl.cs</DependentUpon>

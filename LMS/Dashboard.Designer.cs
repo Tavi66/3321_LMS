@@ -80,6 +80,7 @@
             this.navPanel.Name = "navPanel";
             this.navPanel.Size = new System.Drawing.Size(248, 583);
             this.navPanel.TabIndex = 9;
+            this.navPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.navPanel_Paint);
             // 
             // usersButton
             // 
@@ -87,7 +88,7 @@
             this.usersButton.BackColor = System.Drawing.Color.Transparent;
             this.usersButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.usersButton.ForeColor = System.Drawing.Color.White;
-            this.usersButton.Location = new System.Drawing.Point(0, 197);
+            this.usersButton.Location = new System.Drawing.Point(-1, 230);
             this.usersButton.Name = "usersButton";
             this.usersButton.Padding = new System.Windows.Forms.Padding(5, 0, 125, 0);
             this.usersButton.Size = new System.Drawing.Size(201, 20);
@@ -124,11 +125,11 @@
             this.registerCoursesButton.BackColor = System.Drawing.Color.Transparent;
             this.registerCoursesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.registerCoursesButton.ForeColor = System.Drawing.Color.White;
-            this.registerCoursesButton.Location = new System.Drawing.Point(0, 197);
+            this.registerCoursesButton.Location = new System.Drawing.Point(5, 195);
             this.registerCoursesButton.Name = "registerCoursesButton";
             this.registerCoursesButton.Size = new System.Drawing.Size(100, 23);
             this.registerCoursesButton.TabIndex = 8;
-            this.registerCoursesButton.Text = "Register Courses";
+            this.registerCoursesButton.Text = "ENROLL";
             this.registerCoursesButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
             // changePasswordButton
@@ -153,9 +154,9 @@
             this.lblFamilyName.ForeColor = System.Drawing.Color.White;
             this.lblFamilyName.Location = new System.Drawing.Point(22, 69);
             this.lblFamilyName.Name = "lblFamilyName";
-            this.lblFamilyName.Size = new System.Drawing.Size(97, 20);
+            this.lblFamilyName.Size = new System.Drawing.Size(53, 20);
             this.lblFamilyName.TabIndex = 1;
-            this.lblFamilyName.Text = "SURNAME";
+            this.lblFamilyName.Text = "Login";
             // 
             // lblGivenName
             // 
@@ -165,9 +166,9 @@
             this.lblGivenName.ForeColor = System.Drawing.Color.White;
             this.lblGivenName.Location = new System.Drawing.Point(22, 44);
             this.lblGivenName.Name = "lblGivenName";
-            this.lblGivenName.Size = new System.Drawing.Size(120, 20);
+            this.lblGivenName.Size = new System.Drawing.Size(63, 20);
             this.lblGivenName.TabIndex = 0;
-            this.lblGivenName.Text = "GIVEN NAME";
+            this.lblGivenName.Text = "Please";
             // 
             // contentPanel
             // 
