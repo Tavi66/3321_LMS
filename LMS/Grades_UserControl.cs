@@ -77,11 +77,24 @@ namespace LMS
                     {
                         turnedIn = "Yes";
                     }
-                    dgvGrades.Rows.Add(
-                        studentsTable.Rows[x].Field<Int32>(0),
-                        studentsTable.Rows[x].Field<String>(1) + " " + studentsTable.Rows[x].Field<String>(2),
-                        turnedIn
-                    );
+                    if (LMS_Db_Connection.Instance.AssignmentGraded(this.assignmentId, studentsTable.Rows[x].Field<Int32>(0)))
+                    {
+                        int grade = LMS_Db_Connection.Instance.GetAssignmentGrade(this.assignmentId, studentsTable.Rows[x].Field<Int32>(0));
+                        dgvGrades.Rows.Add(
+                            studentsTable.Rows[x].Field<Int32>(0),
+                            studentsTable.Rows[x].Field<String>(1) + " " + studentsTable.Rows[x].Field<String>(2),
+                            turnedIn,
+                            grade
+                        );
+                    }
+                    else
+                    {
+                        dgvGrades.Rows.Add(
+                            studentsTable.Rows[x].Field<Int32>(0),
+                            studentsTable.Rows[x].Field<String>(1) + " " + studentsTable.Rows[x].Field<String>(2),
+                            turnedIn
+                        );
+                    }
                 }
             }
         }
@@ -93,6 +106,22 @@ namespace LMS
         private void dgvGrades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnSaveGrades_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dgvGrades.RowCount; i++)
+            {
+                int userId;
+                int grade;
+
+                if ((int.TryParse(dgvGrades.Rows[i].Cells[0].Value.ToString(), out userId))
+                    && (int.TryParse(dgvGrades.Rows[i].Cells[3].Value.ToString(), out grade)))
+                {
+                    LMS_Db_Connection.Instance.GradeAssignmentForUser(this.assignmentId, userId, grade);
+                }
+
+            }
         }
     }
 }

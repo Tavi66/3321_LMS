@@ -31,6 +31,7 @@
             this.dgvGrades = new System.Windows.Forms.DataGridView();
             this.txtAssignmentDesc = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnSaveGrades = new System.Windows.Forms.Button();
             this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TurnedIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,11 +49,9 @@
             this.UserName,
             this.TurnedIn,
             this.Grade});
-            this.dgvGrades.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgvGrades.Location = new System.Drawing.Point(0, 33);
             this.dgvGrades.Name = "dgvGrades";
-            this.dgvGrades.ReadOnly = true;
-            this.dgvGrades.Size = new System.Drawing.Size(900, 518);
+            this.dgvGrades.Size = new System.Drawing.Size(900, 482);
             this.dgvGrades.TabIndex = 0;
             this.dgvGrades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGrades_CellContentClick);
             // 
@@ -72,6 +71,16 @@
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Grading:";
+            // 
+            // btnSaveGrades
+            // 
+            this.btnSaveGrades.Location = new System.Drawing.Point(69, 521);
+            this.btnSaveGrades.Name = "btnSaveGrades";
+            this.btnSaveGrades.Size = new System.Drawing.Size(96, 23);
+            this.btnSaveGrades.TabIndex = 10;
+            this.btnSaveGrades.Text = "Save Grades";
+            this.btnSaveGrades.UseVisualStyleBackColor = true;
+            this.btnSaveGrades.Click += new System.EventHandler(this.btnSaveGrades_Click);
             // 
             // UserID
             // 
@@ -96,12 +105,12 @@
             // 
             this.Grade.HeaderText = "Grade";
             this.Grade.Name = "Grade";
-            this.Grade.ReadOnly = true;
             // 
             // Grades_UserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSaveGrades);
             this.Controls.Add(this.txtAssignmentDesc);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dgvGrades);
@@ -118,6 +127,7 @@
         private System.Windows.Forms.DataGridView dgvGrades;
         private System.Windows.Forms.TextBox txtAssignmentDesc;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnSaveGrades;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserID;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
         private System.Windows.Forms.DataGridViewTextBoxColumn TurnedIn;

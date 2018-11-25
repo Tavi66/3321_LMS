@@ -67,6 +67,7 @@ namespace LMS
                 {
                     if (LMS_Db_Connection.Instance.AssignmentGraded(assignmentTable.Rows[x].Field<Int32>(0)))
                     {
+                        MessageBox.Show(LMS_Db_Connection.Instance.GetAssignmentGrade(assignmentTable.Rows[x].Field<Int32>(0)).ToString());
                         dgvAssignments.Rows.Add(
                             assignmentTable.Rows[x].Field<Int32>(0),
                             assignmentTable.Rows[x].Field<Int32>(1),
@@ -135,6 +136,12 @@ namespace LMS
                 Grades_UserControl.Instance.AssignmentId = (int)dgvAssignments.Rows[e.RowIndex].Cells[0].Value;
                 Grades_UserControl.Instance.AssignmentDesc = dgvAssignments.Rows[e.RowIndex].Cells[0].Value.ToString();
                 dashboard.Grades_BringToFront();   
+            }
+            if (e.RowIndex >= 0 && e.ColumnIndex == 5) //Delete assignments column
+            {
+                LMS_Db_Connection.Instance.DeleteAssignment((int)dgvAssignments.Rows[e.RowIndex].Cells[0].Value);
+                MessageBox.Show("Assignment deleted.");
+                refreshAssignmentsDataTable();
             }
             if (e.RowIndex >= 0 && e.ColumnIndex == 6) //Turn in column
             {
