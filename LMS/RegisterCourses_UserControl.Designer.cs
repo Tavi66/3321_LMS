@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.dgvEnrollCourses = new System.Windows.Forms.DataGridView();
-            this.btnEnroll = new System.Windows.Forms.Button();
+            this.btnUpdateEnrollments = new System.Windows.Forms.Button();
             this.cboUsers = new System.Windows.Forms.ComboBox();
             this.Enroll = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CourseID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,15 +53,15 @@
             this.dgvEnrollCourses.TabIndex = 0;
             this.dgvEnrollCourses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEnrollCourses_CellContentClick);
             // 
-            // btnEnroll
+            // btnUpdateEnrollments
             // 
-            this.btnEnroll.Location = new System.Drawing.Point(188, 529);
-            this.btnEnroll.Name = "btnEnroll";
-            this.btnEnroll.Size = new System.Drawing.Size(75, 23);
-            this.btnEnroll.TabIndex = 1;
-            this.btnEnroll.Text = "Enroll";
-            this.btnEnroll.UseVisualStyleBackColor = true;
-            this.btnEnroll.Click += new System.EventHandler(this.btnEnroll_Click);
+            this.btnUpdateEnrollments.Location = new System.Drawing.Point(188, 529);
+            this.btnUpdateEnrollments.Name = "btnUpdateEnrollments";
+            this.btnUpdateEnrollments.Size = new System.Drawing.Size(121, 23);
+            this.btnUpdateEnrollments.TabIndex = 1;
+            this.btnUpdateEnrollments.Text = "Update Enrollments";
+            this.btnUpdateEnrollments.UseVisualStyleBackColor = true;
+            this.btnUpdateEnrollments.Click += new System.EventHandler(this.btnEnroll_Click);
             // 
             // cboUsers
             // 
@@ -70,6 +70,7 @@
             this.cboUsers.Name = "cboUsers";
             this.cboUsers.Size = new System.Drawing.Size(121, 21);
             this.cboUsers.TabIndex = 2;
+            this.cboUsers.SelectedIndexChanged += new System.EventHandler(this.cboUsers_SelectedIndexChanged);
             // 
             // Enroll
             // 
@@ -86,13 +87,14 @@
             // 
             this.CourseDesc.HeaderText = "Course Desc";
             this.CourseDesc.Name = "CourseDesc";
+            this.CourseDesc.Width = 200;
             // 
             // RegisterCourses_UserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.cboUsers);
-            this.Controls.Add(this.btnEnroll);
+            this.Controls.Add(this.btnUpdateEnrollments);
             this.Controls.Add(this.dgvEnrollCourses);
             this.Name = "RegisterCourses_UserControl";
             this.Size = new System.Drawing.Size(900, 581);
@@ -105,7 +107,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvEnrollCourses;
-        private System.Windows.Forms.Button btnEnroll;
+        private System.Windows.Forms.Button btnUpdateEnrollments;
         private System.Windows.Forms.ComboBox cboUsers;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Enroll;
         private System.Windows.Forms.DataGridViewTextBoxColumn CourseID;

@@ -99,10 +99,31 @@ namespace LMS
             }
         }
 
+        public void DeleteAssignment(int assignmentID)
+        {
+            //to do: in database, have delete row operation trigger a delete on grades table as well, if same assignment ID is present
+            if (authenticated && userRole == 3)
+            {
+                dbCmd = new SqlCommand("Delete_Assignment_SP", dbConn);
+                dbCmd.CommandType = CommandType.StoredProcedure;
+                dbCmd.Parameters.AddWithValue("@Id", assignmentID);
+                dbConn.Open();
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                dbConn.Close();
+            }
+        }
+
         public void TurnInAssignment(int assignmentID)
         {
             Debug.WriteLine("Turning in assignment " + assignmentID);
-            if (authenticated && userRole == 4)
+            if (authenticated && userRole == 4 && !AssignmentTurnedIn(assignmentID))
             {
                 dbCmd = new SqlCommand("TurnIn_Assignment_SP", dbConn);
                 dbCmd.CommandType = CommandType.StoredProcedure;
@@ -132,23 +153,32 @@ namespace LMS
             dbDr = dbCmd.ExecuteReader();
             if (dbDr.Read())
             {
+                Debug.WriteLine("Checking if " + assignmentID + " turned in for " + userID + " =" + dbDr[0]);
                 dbConn.Close();
                 return true;
             }
             dbConn.Close();
             return false;
         }
+
         public bool AssignmentGraded(int assignmentID)
         {
+            return AssignmentGraded(assignmentID, this.userID);
+        }
+
+        public bool AssignmentGraded(int assignmentID, int userId)
+        {
+            int grade;
             dbConn.Open();
-            dbCmd = new SqlCommand("SELECT Grade FROM Grades WHERE AssignmentId='" + assignmentID + "' AND UserId='" + this.UserID + "'", dbConn);
+            dbCmd = new SqlCommand("SELECT Grade FROM Grades WHERE AssignmentId='" + assignmentID + "' AND UserId='" + userId + "'", dbConn);
             try
             {
                 dbDr = dbCmd.ExecuteReader();
                 if (dbDr.Read())
                 {
+                    grade = (int)dbDr[0];
                     dbConn.Close();
-                    if ((int)dbDr[0] != -1)
+                    if (grade != -1)
                     {
                         return true;
                     }
@@ -157,12 +187,11 @@ namespace LMS
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine("Checking if assignment graded and exeption. " + ex);
             }
             dbConn.Close();
             return false;
         }
-
         public DataSet getStudentsEnrrolledInClass(int courseId)
         {
             String sqlCmd = "SELECT Enrollments.UserId, Users.[Given Name], Users.[Family Name] FROM Enrollments, Users WHERE Users.Id=Enrollments.UserId AND Users.Role='4' AND Enrollments.CourseId='" + courseId + "'";
@@ -186,18 +215,25 @@ namespace LMS
         
         public int GetAssignmentGrade(int assignmentID)
         {
+            return GetAssignmentGrade(assignmentID, this.UserID);
+        }
+        public int GetAssignmentGrade(int assignmentID, int userId)
+        {
+            int grade;
             dbConn.Open();
-            dbCmd = new SqlCommand("SELECT Grade FROM Assignments WHERE AssignmentId='" + assignmentID + "' AND UserId='" + this.UserID + "'", dbConn);
+            dbCmd = new SqlCommand("SELECT Grade FROM Grades WHERE AssignmentId='" + assignmentID + "' AND UserId='" + userId + "'", dbConn);
             dbDr = dbCmd.ExecuteReader();
             if (dbDr.Read())
             {
+                grade = (int)dbDr[0];
+                Debug.WriteLine("Checking if " + assignmentID + " graded for " + userId + "= " + grade);
                 dbConn.Close();
-                return (int)dbDr[0];
+                return grade;
             }
+            Debug.WriteLine("Checking if " + assignmentID + " graded for " + userId + "= no");
             dbConn.Close();
             return 0;
         }
-
         public void CreateAssignment(int courseID, int totalPoints, string desc)
         {
             Debug.WriteLine(courseID);
@@ -311,10 +347,10 @@ namespace LMS
 
         public void Enroll_Course(int courseID)
         {
-            Enroll_Course(this.UserID, courseID);
+            Enroll_Course(courseID, this.UserID);
         }
 
-        public void Enroll_Course(int userID, int courseID)
+        public void Enroll_Course(int courseID, int userID)
         {
             if (authenticated && (userRole == 4 || userRole == 2) )
             {
@@ -334,7 +370,64 @@ namespace LMS
                 dbConn.Close();
             }
         }
-                
+
+        public void Unenroll_Course(int courseID)
+        {
+            Unenroll_Course(courseID, this.UserID);
+        }
+
+        public void Unenroll_Course(int courseID, int userID)
+        {
+            if (authenticated && (userRole == 4 || userRole == 2))
+            {
+                dbCmd = new SqlCommand("Unenroll_Course_SP", dbConn);
+                dbCmd.CommandType = CommandType.StoredProcedure;
+                dbCmd.Parameters.AddWithValue("@userID", userID);
+                dbCmd.Parameters.AddWithValue("@courseID", courseID);
+                dbConn.Open();
+                try
+                {
+                    dbCmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                dbConn.Close();
+            }
+        }
+
+        public void GradeAssignmentForUser(int assignmentId, int userId, int grade)
+        {
+            Debug.WriteLine("Grading " + assignmentId + " for user " + userId + " with grade " + grade);
+            string SQLCmd;
+            if (AssignmentTurnedIn(assignmentId, userId))
+            {
+                Debug.WriteLine("Assignment already turned in, so updating grade.");
+                SQLCmd = "Update_Grade_SP";
+            }
+            else
+            {
+                Debug.WriteLine("Assignment not turned in, so inserting grade.");
+                SQLCmd = "Insert_Grade_Entry_SP";
+            }
+            dbCmd = new SqlCommand(SQLCmd, dbConn);
+            dbCmd.CommandType = CommandType.StoredProcedure;
+            dbCmd.Parameters.AddWithValue("@assignmentId", assignmentId);
+            dbCmd.Parameters.AddWithValue("@userId", userId);
+            dbCmd.Parameters.AddWithValue("@grade", grade);
+            dbConn.Open();
+            try
+            {
+                dbCmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            dbConn.Close();
+        }
+
         public void Add_User(int Id, String UserName, String Password, String GivenName, String FamilyName, int Year, int Role)
         {
             if (authenticated && userRole <= 2)
@@ -424,18 +517,20 @@ namespace LMS
         }
         public bool IsEnrolled(int CourseID, int UserID)
         {
-            dbCmd = new SqlCommand("SELECT Id FROM Enrollments WHERE CourseID='" + CourseID + " AND UserID='"+ UserID + "'", dbConn);
             dbConn.Open();
+            dbCmd = new SqlCommand("SELECT Id FROM Enrollments WHERE CourseID='" + CourseID + "' AND UserID='"+ UserID + "'", dbConn);
+            Debug.WriteLine("Checking enrollment " + CourseID + " for " + UserID);
             try
             {
                 dbDr = dbCmd.ExecuteReader();
                 dbDr.Read();
+                Debug.WriteLine("Enrolled? " + dbDr[0].ToString());
                 dbConn.Close();
                 return true;
             }
             catch (Exception ex)
             {
-                
+                Debug.WriteLine("Not enrolled? " + ex);
             }
             dbConn.Close();
             return false;
