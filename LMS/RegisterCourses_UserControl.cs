@@ -55,6 +55,7 @@ namespace LMS
             {
                 cboUsers.Visible = false;
             }
+            cboUsers.Text = String.Empty;
         }
 
         private void btnEnroll_Click(object sender, EventArgs e)
@@ -65,22 +66,32 @@ namespace LMS
                 {
                     if (cboUsers.Text != String.Empty)
                     {
-                        LMS_Db_Connection.Instance.Enroll_Course(userIDs[cboUsers.SelectedIndex], (int)dgvEnrollCourses.Rows[i].Cells[1].Value);
+                        if (!LMS_Db_Connection.Instance.IsEnrolled((int)dgvEnrollCourses.Rows[i].Cells[1].Value, userIDs[cboUsers.SelectedIndex]))
+                        {
+                            LMS_Db_Connection.Instance.Enroll_Course((int)dgvEnrollCourses.Rows[i].Cells[1].Value, userIDs[cboUsers.SelectedIndex]);
+                        }
                     }
                     else
                     {
-                        LMS_Db_Connection.Instance.Enroll_Course((int)dgvEnrollCourses.Rows[i].Cells[1].Value);
+                        if (!LMS_Db_Connection.Instance.IsEnrolled((int)dgvEnrollCourses.Rows[i].Cells[1].Value))
+                        {
+                            LMS_Db_Connection.Instance.Enroll_Course((int)dgvEnrollCourses.Rows[i].Cells[1].Value);
+                        }
+                    }
+                }
+                else
+                {
+                    if (cboUsers.Text != String.Empty)
+                    {
+                        LMS_Db_Connection.Instance.Unenroll_Course((int)dgvEnrollCourses.Rows[i].Cells[1].Value, userIDs[cboUsers.SelectedIndex]);
+                    }
+                    else
+                    {
+                        LMS_Db_Connection.Instance.Unenroll_Course((int)dgvEnrollCourses.Rows[i].Cells[1].Value);
                     }
                 }
             }
-            if (cboUsers.Text == String.Empty)
-            {
-                MessageBox.Show("You are enrolled.");
-            }
-            else
-            {
-                MessageBox.Show("User enrolled.");
-            }
+            MessageBox.Show("Enrollments Updated.");
             dashboard.btnHome.PerformClick();
         }
 
@@ -89,7 +100,29 @@ namespace LMS
             dgvEnrollCourses.Rows.Clear();
             dgvEnrollCourses.Refresh();
             DataTable dashboardTable = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0];
-            if (LMS_Db_Connection.Instance.UserRole == 2 || LMS_Db_Connection.Instance.UserRole == 4)
+            if (LMS_Db_Connection.Instance.UserRole == 2)
+            {
+                for (int x = 0; x < dashboardTable.Rows.Count; x++)
+                {
+                    if (cboUsers.Text != String.Empty)
+                    {
+                        dgvEnrollCourses.Rows.Add(
+                            LMS_Db_Connection.Instance.IsEnrolled(dashboardTable.Rows[x].Field<Int32>(0), userIDs[cboUsers.SelectedIndex]),
+                            dashboardTable.Rows[x].Field<Int32>(0),
+                            dashboardTable.Rows[x].Field<String>(1)
+                        );
+                    }
+                    else
+                    {
+                        dgvEnrollCourses.Rows.Add(
+                            LMS_Db_Connection.Instance.IsEnrolled(dashboardTable.Rows[x].Field<Int32>(0)),
+                            dashboardTable.Rows[x].Field<Int32>(0),
+                            dashboardTable.Rows[x].Field<String>(1)
+                        );
+                    }
+                }
+            }
+            else if (LMS_Db_Connection.Instance.UserRole == 4)
             {
                 for (int x = 0; x < dashboardTable.Rows.Count; x++)
                 {
@@ -109,6 +142,11 @@ namespace LMS
         private void dgvEnrollCourses_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void cboUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            refreshCourseRegistrationDataTable();
         }
     }
 }
