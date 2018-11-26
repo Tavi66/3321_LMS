@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Dashboard));
             this.logoutButton = new System.Windows.Forms.Button();
             this.DateLabel = new System.Windows.Forms.Label();
             this.navPanel = new System.Windows.Forms.Panel();
@@ -60,7 +61,7 @@
             this.DateLabel.AutoSize = true;
             this.DateLabel.Location = new System.Drawing.Point(965, 32);
             this.DateLabel.Name = "DateLabel";
-            this.DateLabel.Size = new System.Drawing.Size(123, 13);
+            this.DateLabel.Size = new System.Drawing.Size(155, 17);
             this.DateLabel.TabIndex = 5;
             this.DateLabel.Text = "M DD YYYY HH:MM:SS";
             this.DateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -91,7 +92,7 @@
             this.usersButton.Location = new System.Drawing.Point(-1, 230);
             this.usersButton.Name = "usersButton";
             this.usersButton.Padding = new System.Windows.Forms.Padding(5, 0, 125, 0);
-            this.usersButton.Size = new System.Drawing.Size(201, 20);
+            this.usersButton.Size = new System.Drawing.Size(215, 25);
             this.usersButton.TabIndex = 7;
             this.usersButton.Text = "USERS";
             this.usersButton.Click += new System.EventHandler(this.usersButton_Click);
@@ -105,7 +106,7 @@
             this.label2.Location = new System.Drawing.Point(-1, 149);
             this.label2.Name = "label2";
             this.label2.Padding = new System.Windows.Forms.Padding(5, 0, 100, 0);
-            this.label2.Size = new System.Drawing.Size(227, 20);
+            this.label2.Size = new System.Drawing.Size(252, 25);
             this.label2.TabIndex = 6;
             this.label2.Text = "DASHBOARD";
             // 
@@ -141,7 +142,7 @@
             this.changePasswordButton.Location = new System.Drawing.Point(-3, 388);
             this.changePasswordButton.Name = "changePasswordButton";
             this.changePasswordButton.Padding = new System.Windows.Forms.Padding(10, 10, 100, 10);
-            this.changePasswordButton.Size = new System.Drawing.Size(218, 33);
+            this.changePasswordButton.Size = new System.Drawing.Size(247, 37);
             this.changePasswordButton.TabIndex = 3;
             this.changePasswordButton.Text = "Change Password";
             this.changePasswordButton.Click += new System.EventHandler(this.changePasswordButton_Click);
@@ -154,7 +155,7 @@
             this.lblFamilyName.ForeColor = System.Drawing.Color.White;
             this.lblFamilyName.Location = new System.Drawing.Point(22, 69);
             this.lblFamilyName.Name = "lblFamilyName";
-            this.lblFamilyName.Size = new System.Drawing.Size(53, 20);
+            this.lblFamilyName.Size = new System.Drawing.Size(65, 25);
             this.lblFamilyName.TabIndex = 1;
             this.lblFamilyName.Text = "Login";
             // 
@@ -166,7 +167,7 @@
             this.lblGivenName.ForeColor = System.Drawing.Color.White;
             this.lblGivenName.Location = new System.Drawing.Point(22, 44);
             this.lblGivenName.Name = "lblGivenName";
-            this.lblGivenName.Size = new System.Drawing.Size(63, 20);
+            this.lblGivenName.Size = new System.Drawing.Size(78, 25);
             this.lblGivenName.TabIndex = 0;
             this.lblGivenName.Text = "Please";
             // 
@@ -186,6 +187,7 @@
             this.Controls.Add(this.contentPanel);
             this.Controls.Add(this.DateLabel);
             this.Controls.Add(this.navPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Dashboard";
             this.Text = "LMS";
