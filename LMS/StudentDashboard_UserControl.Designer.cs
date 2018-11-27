@@ -102,6 +102,7 @@
             this.CourseDesc.HeaderText = "Course Desc";
             this.CourseDesc.Name = "CourseDesc";
             this.CourseDesc.ReadOnly = true;
+            this.CourseDesc.Width = 200;
             // 
             // GoToClass
             // 

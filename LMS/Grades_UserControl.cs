@@ -12,6 +12,7 @@ namespace LMS
 {
     public partial class Grades_UserControl : UserControl
     {
+        Dashboard dashboard = (Dashboard)Application.OpenForms["Dashboard"];
         private static Grades_UserControl _instance;
         private int assignmentId;
         private int courseId;
@@ -115,13 +116,19 @@ namespace LMS
                 int userId;
                 int grade;
 
-                if ((int.TryParse(dgvGrades.Rows[i].Cells[0].Value.ToString(), out userId))
+                if (dgvGrades.Rows[i].Cells[3].Value != null && (int.TryParse(dgvGrades.Rows[i].Cells[0].Value.ToString(), out userId))
                     && (int.TryParse(dgvGrades.Rows[i].Cells[3].Value.ToString(), out grade)))
                 {
                     LMS_Db_Connection.Instance.GradeAssignmentForUser(this.assignmentId, userId, grade);
                 }
-
             }
+            MessageBox.Show("Grades saved.");
+            btnCancel.PerformClick();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            dashboard.Class_BringToFront();
         }
     }
 }

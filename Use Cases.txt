@@ -34,7 +34,7 @@ Note that the only classes listed are the ones that match their "year" entry in 
 
 Use Case 3
 Severus Snape assigns the following assignment to the 5th year potions class:
-1 roll of parchment on the properties of moonstones. Total point 10. Due in 2 days.
+1 roll of parchment on the properties of moonstones. Total point 10.
 Snape logs out.
 
 Angelina logs in and sees the assignment is due. She turns it in immediately.
@@ -57,7 +57,7 @@ Hermione drops the divination class. Her grade on the predictions assignment als
 Sybill logs in and sees that Hermione is no longer listed on the roster
 
 Use Case 6
-Snape subs for Lupin because he is sick. He assigns the 3rd year defense against the dark arts class an essay on the properties of the werewolf.
+Snape subs for Lupin because he is sick. Dumbledore has to "enroll" Snape as a teacher of Defense Against the Dark Arts. Snape assigns the 3rd year defense against the dark arts class an essay on the qualities of the werewolf.
 Hermione turns in the assignment. Harry and Ron do not.
 Lupin recovers, logs in and cancels the assignment.
 Hermione, Ron, and Harry all log in to see the assignment is no longer there.

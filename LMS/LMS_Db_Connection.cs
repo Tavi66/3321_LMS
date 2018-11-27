@@ -213,6 +213,52 @@ namespace LMS
             return DS;
         }
         
+        public int getRoleOfUser(int userId)
+        {
+            int role;
+            dbConn.Open();
+            dbCmd = new SqlCommand("SELECT Role FROM Users WHERE Id='" + userId + "'", dbConn);
+            try
+            {
+                dbDr = dbCmd.ExecuteReader();
+                if (dbDr.Read())
+                {
+                    role = (int)dbDr[0];
+                    dbConn.Close();
+                    return role;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed getting role of user." + ex);
+                            }
+            dbConn.Close();
+            return 0;
+        }
+
+        public int getYearOfStudent(int userId)
+        {
+            int role;
+            dbConn.Open();
+            dbCmd = new SqlCommand("SELECT Year FROM Users WHERE Id='" + userId + "'", dbConn);
+            try
+            {
+                dbDr = dbCmd.ExecuteReader();
+                if (dbDr.Read())
+                {
+                    role = (int)dbDr[0];
+                    dbConn.Close();
+                    return role;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed getting year of student. " + ex);
+            }
+            dbConn.Close();
+            return 0;
+        }
+
         public int GetAssignmentGrade(int assignmentID)
         {
             return GetAssignmentGrade(assignmentID, this.UserID);
@@ -234,6 +280,44 @@ namespace LMS
             dbConn.Close();
             return 0;
         }
+
+        public double getStudentGradeInClass(int courseId)
+        {
+            return getStudentGradeInClass(courseId, this.UserID);
+        }
+
+        public double getStudentGPACurrentSemester()
+        {
+            return getStudentGPACurrentSemester(this.UserID);
+        }
+        public double getStudentGPACurrentSemester(int userId)
+        {
+            DataSet enrolledCourses = getEnrolledCourses(userId);
+            Double totalOfGrades = 0;
+            for (int i = 0; i < enrolledCourses.Tables[0].Rows.Count; i++)
+            {
+                totalOfGrades += getStudentGradeInClass(enrolledCourses.Tables[0].Rows[i].Field<Int32>(0));
+            }
+            return totalOfGrades / enrolledCourses.Tables[0].Rows.Count;
+        }
+        public double getStudentGradeInClass(int courseId, int userId)
+        {
+            int totalPointsAvail = 0;
+            int totalPointsEarned = 0;
+            DataSet assignments = getAssignmentsForClass(courseId);
+            for (int i = 0; i < assignments.Tables[0].Rows.Count; i++)
+            {
+                int assignmentId = assignments.Tables[0].Rows[i].Field<Int32>(0);
+                int assignmentTotalPoints = assignments.Tables[0].Rows[i].Field<Int32>(1);
+                if (AssignmentGraded(assignmentId, userId))
+                {
+                    totalPointsAvail += assignmentTotalPoints;
+                    totalPointsEarned += GetAssignmentGrade(assignmentId, userId);
+                }
+            }
+            return (double)totalPointsEarned / totalPointsAvail;
+        }
+
         public void CreateAssignment(int courseID, int totalPoints, string desc)
         {
             Debug.WriteLine(courseID);
@@ -295,15 +379,21 @@ namespace LMS
             dbConn.Close();
             return authenticated;
         }
+
         public DataSet getEligibleClasses()
         {
-            String sqlCmd = "SELECT Id, Name FROM Courses";
-            dbConn.Open();
-            if (this.UserRole == 4)
-            {
-                sqlCmd += " WHERE Year = '" + this.userYear + "'";
-            }
+            return getEligibleClasses(this.UserID);
+        }
 
+        public DataSet getEligibleClasses(int userId)
+        {
+            String sqlCmd = "SELECT Id, Name FROM Courses";
+            if (getRoleOfUser(userId) == 4)
+            {
+                sqlCmd += " WHERE Year = '" + getYearOfStudent(userId) + "'";
+            }
+            Debug.WriteLine(sqlCmd);
+            dbConn.Open();
             dbCmd = new SqlCommand(sqlCmd, dbConn);
             SqlDataAdapter DA = new SqlDataAdapter(dbCmd);
             DataSet DS = new DataSet();
@@ -320,7 +410,6 @@ namespace LMS
             dbConn.Close();
             return DS;
         }
-
         public DataSet getUsers()
         {
             DataSet DS = null;
@@ -537,11 +626,15 @@ namespace LMS
         }
         public DataSet getEnrolledCourses()
         {
+            return getEnrolledCourses(this.UserID);
+        }
+        public DataSet getEnrolledCourses(int userId)
+        {
             DataSet DS = null;
             if (authenticated && userRole >= 2)
             {
                 dbConn.Open();
-                dbCmd = new SqlCommand("Select Enrollments.courseId, Courses.Name from Enrollments, Courses WHERE Enrollments.UserId='" +this.userID+"' and Courses.Id=Enrollments.CourseId", dbConn);
+                dbCmd = new SqlCommand("Select Enrollments.courseId, Courses.Name from Enrollments, Courses WHERE Enrollments.UserId='" +userId+"' and Courses.Id=Enrollments.CourseId", dbConn);
                 SqlDataAdapter DA = new SqlDataAdapter(dbCmd);
                 DS = new DataSet();
                 DA.Fill(DS);
