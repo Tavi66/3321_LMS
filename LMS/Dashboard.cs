@@ -77,6 +77,7 @@ namespace LMS
                 case 0:
                     lblGivenName.Text = "Please";
                     lblFamilyName.Text = "Log In";
+                    logoutButton.Visible = false;
                     registerCoursesButton.Visible = false;
                     btnHome.Visible = false;
                     changePasswordButton.Visible = false;
@@ -86,6 +87,7 @@ namespace LMS
                 case 1: //super
                     lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
                     lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
+                    logoutButton.Visible = true;
                     registerCoursesButton.Visible = false;
                     usersButton.Visible = true;
                     changePasswordButton.Visible = true;
@@ -95,6 +97,7 @@ namespace LMS
                 case 2: //admin
                     lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
                     lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
+                    logoutButton.Visible = true;
                     registerCoursesButton.Visible = true;
                     usersButton.Visible = true;
                     changePasswordButton.Visible = true;
@@ -104,6 +107,7 @@ namespace LMS
                 case 3: //professor
                     lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
                     lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
+                    logoutButton.Visible = true;
                     changePasswordButton.Visible = true;
                     btnHome.Visible = true;
                     btnHome.PerformClick();
@@ -111,6 +115,7 @@ namespace LMS
                 case 4: //student
                     lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
                     lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
+                    logoutButton.Visible = true;
                     registerCoursesButton.Visible = true;
                     usersButton.Visible = false;
                     changePasswordButton.Visible = true;
@@ -236,6 +241,11 @@ namespace LMS
         }
 
         private void navPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void contentPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }
