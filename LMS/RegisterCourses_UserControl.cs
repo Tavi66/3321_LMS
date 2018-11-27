@@ -97,9 +97,17 @@ namespace LMS
 
         public void refreshCourseRegistrationDataTable()
         {
+            DataTable dashboardTable;
             dgvEnrollCourses.Rows.Clear();
             dgvEnrollCourses.Refresh();
-            DataTable dashboardTable = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0];
+            if (cboUsers.Text != String.Empty)
+            {
+                dashboardTable = LMS_Db_Connection.Instance.getEligibleClasses(userIDs[cboUsers.SelectedIndex]).Tables[0];
+            }
+            else
+            {
+                dashboardTable = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0];
+            }
             if (LMS_Db_Connection.Instance.UserRole == 2)
             {
                 for (int x = 0; x < dashboardTable.Rows.Count; x++)
