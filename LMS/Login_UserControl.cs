@@ -50,6 +50,7 @@ namespace LMS
                 dashboard.setMode(role);
                 usernameEntry.Text = "";
                 passwordEntry.Text = "";
+                errorLabel.Visible = false;
             }
             else
             {

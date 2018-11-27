@@ -113,7 +113,6 @@
             this.passwordEntry.PasswordChar = '*';
             this.passwordEntry.Size = new System.Drawing.Size(188, 20);
             this.passwordEntry.TabIndex = 2;
-            this.passwordEntry.Text = "SSPass";
             // 
             // usernameEntry
             // 
@@ -123,7 +122,6 @@
             this.usernameEntry.Name = "usernameEntry";
             this.usernameEntry.Size = new System.Drawing.Size(188, 20);
             this.usernameEntry.TabIndex = 1;
-            this.usernameEntry.Text = "Severus.Snape";
             // 
             // Login_UserControl
             // 
