@@ -124,6 +124,8 @@ namespace LMS
             {
                 LMS_Db_Connection.Instance.CreateAssignment(this.courseId, totalPoints, txtDesc.Text);
             }
+            txtTotalPoints.Text = String.Empty;
+            txtDesc.Text = String.Empty;
             refreshAssignmentsDataTable();
         }
 
