@@ -101,6 +101,8 @@ namespace LMS
                 dgvAssignments.Columns["Delete"].Visible = true;
                 dgvAssignments.Columns["TurnIn"].Visible = false;
                 pnlAddAssignment.Visible = true;
+                lblOverallGrade.Visible = false;
+                txtOverallGrade.Visible = false;
             }
             else if (LMS_Db_Connection.Instance.UserRole == 4)
             {
@@ -109,6 +111,12 @@ namespace LMS
                 dgvAssignments.Columns["Delete"].Visible = false;
                 dgvAssignments.Columns["TurnIn"].Visible = true;
                 pnlAddAssignment.Visible = false;
+                lblOverallGrade.Visible = true;
+                txtOverallGrade.Visible = true;
+                if (LMS_Db_Connection.Instance.atLeastOneGradeAvailableInClass(this.courseId))
+                {
+                    txtOverallGrade.Text = LMS_Db_Connection.Instance.getStudentGradeInClass(this.courseId).ToString("P2");
+                }
             }
         }
 
@@ -148,6 +156,19 @@ namespace LMS
             {
                 LMS_Db_Connection.Instance.TurnInAssignment((int)dgvAssignments.Rows[e.RowIndex].Cells[0].Value);
                 MessageBox.Show("Assignment turned in.");
+            }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            if (LMS_Db_Connection.Instance.UserRole == 3)
+            {
+                dashboard.btnHome.PerformClick();
             }
         }
     }

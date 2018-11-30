@@ -41,11 +41,25 @@ namespace LMS
             {
                 for (int x = 0; x < dashboardTable.Rows.Count; x++)
                 {
-                    StudentDashInfo.Rows.Add(
-                        dashboardTable.Rows[x].Field<Int32>(0),
-                        dashboardTable.Rows[x].Field<String>(1)
-                    );
+                    if (LMS_Db_Connection.Instance.atLeastOneGradeAvailableInClass(dashboardTable.Rows[x].Field<Int32>(0)))
+                    {
+                        StudentDashInfo.Rows.Add(
+                            dashboardTable.Rows[x].Field<Int32>(0),
+                            dashboardTable.Rows[x].Field<String>(1),
+                            LMS_Db_Connection.Instance.getStudentGradeInClass(dashboardTable.Rows[x].Field<Int32>(0)).ToString("P2")
+                        );
+                    }
+                    else
+                    {
+                        StudentDashInfo.Rows.Add(
+                            dashboardTable.Rows[x].Field<Int32>(0),
+                            dashboardTable.Rows[x].Field<String>(1),
+                            ""
+                        );
+                    }
                 }
+                txtYear.Text = LMS_Db_Connection.Instance.UserYear.ToString();
+                txtGPA.Text = LMS_Db_Connection.Instance.getStudentGPACurrentSemester().ToString("P2");
             }
         }
         private void StudentDashboard_UserControl_Load(object sender, EventArgs e)
