@@ -281,25 +281,30 @@ namespace LMS
             return 0;
         }
 
+        public bool atLeastOneGradeAvailableInClass(int courseId)
+        {
+            return atLeastOneGradeAvailableInClass(courseId, this.UserID);
+        }
+
+        public bool atLeastOneGradeAvailableInClass(int courseId, int userId)
+        {
+            DataSet assignments = getAssignmentsForClass(courseId);
+            for (int i = 0; i < assignments.Tables[0].Rows.Count; i++)
+            {
+                int assignmentId = assignments.Tables[0].Rows[i].Field<Int32>(0);
+                if (AssignmentGraded(assignmentId, userId))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public double getStudentGradeInClass(int courseId)
         {
             return getStudentGradeInClass(courseId, this.UserID);
         }
 
-        public double getStudentGPACurrentSemester()
-        {
-            return getStudentGPACurrentSemester(this.UserID);
-        }
-        public double getStudentGPACurrentSemester(int userId)
-        {
-            DataSet enrolledCourses = getEnrolledCourses(userId);
-            Double totalOfGrades = 0;
-            for (int i = 0; i < enrolledCourses.Tables[0].Rows.Count; i++)
-            {
-                totalOfGrades += getStudentGradeInClass(enrolledCourses.Tables[0].Rows[i].Field<Int32>(0));
-            }
-            return totalOfGrades / enrolledCourses.Tables[0].Rows.Count;
-        }
         public double getStudentGradeInClass(int courseId, int userId)
         {
             int totalPointsAvail = 0;
@@ -316,6 +321,26 @@ namespace LMS
                 }
             }
             return (double)totalPointsEarned / totalPointsAvail;
+        }
+        
+        public double getStudentGPACurrentSemester()
+        {
+            return getStudentGPACurrentSemester(this.UserID);
+        }
+        public double getStudentGPACurrentSemester(int userId)
+        {
+            DataSet enrolledCourses = getEnrolledCourses(userId);
+            Double totalOfGrades = 0;
+            Double totalCoursesGradeAvailable = 0;
+            for (int i = 0; i < enrolledCourses.Tables[0].Rows.Count; i++)
+            {
+                if (atLeastOneGradeAvailableInClass(enrolledCourses.Tables[0].Rows[i].Field<Int32>(0)))
+                {
+                    totalOfGrades += getStudentGradeInClass(enrolledCourses.Tables[0].Rows[i].Field<Int32>(0));
+                    totalCoursesGradeAvailable++;
+                }
+            }
+            return totalOfGrades / totalCoursesGradeAvailable;
         }
 
         public void CreateAssignment(int courseID, int totalPoints, string desc)
@@ -340,8 +365,6 @@ namespace LMS
                 dbConn.Close();
             }
         }
-
-
 
         public bool authenticateUser(String userName, String password)
         {

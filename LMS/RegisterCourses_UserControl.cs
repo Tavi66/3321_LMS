@@ -13,7 +13,6 @@ namespace LMS
     public partial class RegisterCourses_UserControl : UserControl
     {
         Dashboard dashboard = (Dashboard)Application.OpenForms["Dashboard"];
-        DataGridViewCheckBoxColumn cbColumn;
         List<int> userIDs = new List<int>();
 
         private static RegisterCourses_UserControl _instance;
@@ -108,7 +107,7 @@ namespace LMS
             {
                 dashboardTable = LMS_Db_Connection.Instance.getEligibleClasses().Tables[0];
             }
-            if (LMS_Db_Connection.Instance.UserRole == 2)
+            if (LMS_Db_Connection.Instance.UserRole == 2 && cboUsers.Text != String.Empty)
             {
                 for (int x = 0; x < dashboardTable.Rows.Count; x++)
                 {

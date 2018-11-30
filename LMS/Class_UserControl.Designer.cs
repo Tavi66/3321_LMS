@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             this.dgvAssignments = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Grade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GradeBtn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.TurnIn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txtTotalPoints = new System.Windows.Forms.TextBox();
             this.txtDesc = new System.Windows.Forms.TextBox();
             this.btnAddAssignment = new System.Windows.Forms.Button();
@@ -37,13 +44,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtCourseDesc = new System.Windows.Forms.TextBox();
             this.pnlAddAssignment = new System.Windows.Forms.Panel();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalPoints = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Grade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GradeBtn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.TurnIn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.txtOverallGrade = new System.Windows.Forms.TextBox();
+            this.lblOverallGrade = new System.Windows.Forms.Label();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssignments)).BeginInit();
             this.pnlAddAssignment.SuspendLayout();
             this.SuspendLayout();
@@ -67,77 +70,6 @@
             this.dgvAssignments.Size = new System.Drawing.Size(900, 414);
             this.dgvAssignments.TabIndex = 0;
             this.dgvAssignments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAssignments_CellContentClick);
-            // 
-            // txtTotalPoints
-            // 
-            this.txtTotalPoints.Location = new System.Drawing.Point(23, 52);
-            this.txtTotalPoints.Name = "txtTotalPoints";
-            this.txtTotalPoints.Size = new System.Drawing.Size(100, 20);
-            this.txtTotalPoints.TabIndex = 1;
-            // 
-            // txtDesc
-            // 
-            this.txtDesc.Location = new System.Drawing.Point(133, 52);
-            this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(519, 20);
-            this.txtDesc.TabIndex = 2;
-            // 
-            // btnAddAssignment
-            // 
-            this.btnAddAssignment.Location = new System.Drawing.Point(691, 49);
-            this.btnAddAssignment.Name = "btnAddAssignment";
-            this.btnAddAssignment.Size = new System.Drawing.Size(75, 23);
-            this.btnAddAssignment.TabIndex = 3;
-            this.btnAddAssignment.Text = "Add";
-            this.btnAddAssignment.UseVisualStyleBackColor = true;
-            this.btnAddAssignment.Click += new System.EventHandler(this.btnAddAssignment_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Total Points";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(196, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Description";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Class";
-            // 
-            // txtCourseDesc
-            // 
-            this.txtCourseDesc.Enabled = false;
-            this.txtCourseDesc.Location = new System.Drawing.Point(75, 8);
-            this.txtCourseDesc.Name = "txtCourseDesc";
-            this.txtCourseDesc.Size = new System.Drawing.Size(577, 20);
-            this.txtCourseDesc.TabIndex = 7;
-            // 
-            // pnlAddAssignment
-            // 
-            this.pnlAddAssignment.Controls.Add(this.label1);
-            this.pnlAddAssignment.Controls.Add(this.txtTotalPoints);
-            this.pnlAddAssignment.Controls.Add(this.label2);
-            this.pnlAddAssignment.Controls.Add(this.btnAddAssignment);
-            this.pnlAddAssignment.Controls.Add(this.txtDesc);
-            this.pnlAddAssignment.Location = new System.Drawing.Point(30, 448);
-            this.pnlAddAssignment.Name = "pnlAddAssignment";
-            this.pnlAddAssignment.Size = new System.Drawing.Size(828, 100);
-            this.pnlAddAssignment.TabIndex = 8;
             // 
             // ID
             // 
@@ -189,10 +121,112 @@
             this.TurnIn.Text = "Turn In";
             this.TurnIn.UseColumnTextForButtonValue = true;
             // 
+            // txtTotalPoints
+            // 
+            this.txtTotalPoints.Location = new System.Drawing.Point(23, 52);
+            this.txtTotalPoints.Name = "txtTotalPoints";
+            this.txtTotalPoints.Size = new System.Drawing.Size(100, 20);
+            this.txtTotalPoints.TabIndex = 1;
+            // 
+            // txtDesc
+            // 
+            this.txtDesc.Location = new System.Drawing.Point(133, 52);
+            this.txtDesc.Name = "txtDesc";
+            this.txtDesc.Size = new System.Drawing.Size(519, 20);
+            this.txtDesc.TabIndex = 2;
+            // 
+            // btnAddAssignment
+            // 
+            this.btnAddAssignment.Location = new System.Drawing.Point(691, 49);
+            this.btnAddAssignment.Name = "btnAddAssignment";
+            this.btnAddAssignment.Size = new System.Drawing.Size(75, 23);
+            this.btnAddAssignment.TabIndex = 3;
+            this.btnAddAssignment.Text = "Add";
+            this.btnAddAssignment.UseVisualStyleBackColor = true;
+            this.btnAddAssignment.Click += new System.EventHandler(this.btnAddAssignment_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(35, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Total Points";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(196, 36);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Description";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(41, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Class";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // txtCourseDesc
+            // 
+            this.txtCourseDesc.Enabled = false;
+            this.txtCourseDesc.Location = new System.Drawing.Point(74, 8);
+            this.txtCourseDesc.Name = "txtCourseDesc";
+            this.txtCourseDesc.Size = new System.Drawing.Size(370, 20);
+            this.txtCourseDesc.TabIndex = 7;
+            // 
+            // pnlAddAssignment
+            // 
+            this.pnlAddAssignment.Controls.Add(this.label1);
+            this.pnlAddAssignment.Controls.Add(this.txtTotalPoints);
+            this.pnlAddAssignment.Controls.Add(this.label2);
+            this.pnlAddAssignment.Controls.Add(this.btnAddAssignment);
+            this.pnlAddAssignment.Controls.Add(this.txtDesc);
+            this.pnlAddAssignment.Location = new System.Drawing.Point(30, 448);
+            this.pnlAddAssignment.Name = "pnlAddAssignment";
+            this.pnlAddAssignment.Size = new System.Drawing.Size(828, 100);
+            this.pnlAddAssignment.TabIndex = 8;
+            // 
+            // txtOverallGrade
+            // 
+            this.txtOverallGrade.Enabled = false;
+            this.txtOverallGrade.Location = new System.Drawing.Point(538, 5);
+            this.txtOverallGrade.Name = "txtOverallGrade";
+            this.txtOverallGrade.Size = new System.Drawing.Size(87, 20);
+            this.txtOverallGrade.TabIndex = 10;
+            // 
+            // lblOverallGrade
+            // 
+            this.lblOverallGrade.AutoSize = true;
+            this.lblOverallGrade.Location = new System.Drawing.Point(461, 11);
+            this.lblOverallGrade.Name = "lblOverallGrade";
+            this.lblOverallGrade.Size = new System.Drawing.Size(72, 13);
+            this.lblOverallGrade.TabIndex = 9;
+            this.lblOverallGrade.Text = "Overall Grade";
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(4, 4);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(33, 23);
+            this.btnBack.TabIndex = 11;
+            this.btnBack.Text = "<-";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // Class_UserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnBack);
+            this.Controls.Add(this.txtOverallGrade);
+            this.Controls.Add(this.lblOverallGrade);
             this.Controls.Add(this.pnlAddAssignment);
             this.Controls.Add(this.txtCourseDesc);
             this.Controls.Add(this.label3);
@@ -226,5 +260,8 @@
         private System.Windows.Forms.DataGridViewButtonColumn GradeBtn;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
         private System.Windows.Forms.DataGridViewButtonColumn TurnIn;
+        private System.Windows.Forms.TextBox txtOverallGrade;
+        private System.Windows.Forms.Label lblOverallGrade;
+        private System.Windows.Forms.Button btnBack;
     }
 }

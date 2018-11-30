@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.dgvEnrollCourses = new System.Windows.Forms.DataGridView();
-            this.btnUpdateEnrollments = new System.Windows.Forms.Button();
-            this.cboUsers = new System.Windows.Forms.ComboBox();
             this.Enroll = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CourseID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CourseDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnUpdateEnrollments = new System.Windows.Forms.Button();
+            this.cboUsers = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEnrollCourses)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,31 +47,12 @@
             this.Enroll,
             this.CourseID,
             this.CourseDesc});
-            this.dgvEnrollCourses.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvEnrollCourses.Location = new System.Drawing.Point(0, 0);
+            this.dgvEnrollCourses.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgvEnrollCourses.Location = new System.Drawing.Point(0, 32);
             this.dgvEnrollCourses.Name = "dgvEnrollCourses";
-            this.dgvEnrollCourses.Size = new System.Drawing.Size(900, 501);
+            this.dgvEnrollCourses.Size = new System.Drawing.Size(900, 549);
             this.dgvEnrollCourses.TabIndex = 0;
             this.dgvEnrollCourses.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEnrollCourses_CellContentClick);
-            // 
-            // btnUpdateEnrollments
-            // 
-            this.btnUpdateEnrollments.Location = new System.Drawing.Point(188, 529);
-            this.btnUpdateEnrollments.Name = "btnUpdateEnrollments";
-            this.btnUpdateEnrollments.Size = new System.Drawing.Size(121, 23);
-            this.btnUpdateEnrollments.TabIndex = 1;
-            this.btnUpdateEnrollments.Text = "Update Enrollments";
-            this.btnUpdateEnrollments.UseVisualStyleBackColor = true;
-            this.btnUpdateEnrollments.Click += new System.EventHandler(this.btnEnroll_Click);
-            // 
-            // cboUsers
-            // 
-            this.cboUsers.FormattingEnabled = true;
-            this.cboUsers.Location = new System.Drawing.Point(36, 529);
-            this.cboUsers.Name = "cboUsers";
-            this.cboUsers.Size = new System.Drawing.Size(121, 21);
-            this.cboUsers.TabIndex = 2;
-            this.cboUsers.SelectedIndexChanged += new System.EventHandler(this.cboUsers_SelectedIndexChanged);
             // 
             // Enroll
             // 
@@ -89,10 +71,39 @@
             this.CourseDesc.Name = "CourseDesc";
             this.CourseDesc.Width = 200;
             // 
+            // btnUpdateEnrollments
+            // 
+            this.btnUpdateEnrollments.Location = new System.Drawing.Point(168, 3);
+            this.btnUpdateEnrollments.Name = "btnUpdateEnrollments";
+            this.btnUpdateEnrollments.Size = new System.Drawing.Size(121, 23);
+            this.btnUpdateEnrollments.TabIndex = 1;
+            this.btnUpdateEnrollments.Text = "Update Enrollments";
+            this.btnUpdateEnrollments.UseVisualStyleBackColor = true;
+            this.btnUpdateEnrollments.Click += new System.EventHandler(this.btnEnroll_Click);
+            // 
+            // cboUsers
+            // 
+            this.cboUsers.FormattingEnabled = true;
+            this.cboUsers.Location = new System.Drawing.Point(41, 3);
+            this.cboUsers.Name = "cboUsers";
+            this.cboUsers.Size = new System.Drawing.Size(121, 21);
+            this.cboUsers.TabIndex = 2;
+            this.cboUsers.SelectedIndexChanged += new System.EventHandler(this.cboUsers_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "User:";
+            // 
             // RegisterCourses_UserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cboUsers);
             this.Controls.Add(this.btnUpdateEnrollments);
             this.Controls.Add(this.dgvEnrollCourses);
@@ -101,6 +112,7 @@
             this.Load += new System.EventHandler(this.RegisterCourses_UserControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEnrollCourses)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -112,5 +124,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Enroll;
         private System.Windows.Forms.DataGridViewTextBoxColumn CourseID;
         private System.Windows.Forms.DataGridViewTextBoxColumn CourseDesc;
+        private System.Windows.Forms.Label label1;
     }
 }
