@@ -30,8 +30,7 @@ namespace LMS
 
         private void InitializeForm(object sender, EventArgs e)
         {
-            lblGivenName.Text = LMS_Db_Connection.Instance.GivenName;
-            lblFamilyName.Text = LMS_Db_Connection.Instance.FamilyName;
+            setMode(0);
         }
 
         //

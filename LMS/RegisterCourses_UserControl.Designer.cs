@@ -34,7 +34,7 @@
             this.CourseDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnUpdateEnrollments = new System.Windows.Forms.Button();
             this.cboUsers = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblUser = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEnrollCourses)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,20 +90,20 @@
             this.cboUsers.TabIndex = 2;
             this.cboUsers.SelectedIndexChanged += new System.EventHandler(this.cboUsers_SelectedIndexChanged);
             // 
-            // label1
+            // lblUser
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "User:";
+            this.lblUser.AutoSize = true;
+            this.lblUser.Location = new System.Drawing.Point(4, 6);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(32, 13);
+            this.lblUser.TabIndex = 3;
+            this.lblUser.Text = "User:";
             // 
             // RegisterCourses_UserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblUser);
             this.Controls.Add(this.cboUsers);
             this.Controls.Add(this.btnUpdateEnrollments);
             this.Controls.Add(this.dgvEnrollCourses);
@@ -124,6 +124,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Enroll;
         private System.Windows.Forms.DataGridViewTextBoxColumn CourseID;
         private System.Windows.Forms.DataGridViewTextBoxColumn CourseDesc;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblUser;
     }
 }

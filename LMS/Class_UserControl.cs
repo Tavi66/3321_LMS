@@ -117,6 +117,10 @@ namespace LMS
                 {
                     txtOverallGrade.Text = LMS_Db_Connection.Instance.getStudentGradeInClass(this.courseId).ToString("P2");
                 }
+                else
+                {
+                    txtOverallGrade.Text = String.Empty;
+                }
             }
         }
 
@@ -166,10 +170,7 @@ namespace LMS
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            if (LMS_Db_Connection.Instance.UserRole == 3)
-            {
-                dashboard.btnHome.PerformClick();
-            }
+            dashboard.btnHome.PerformClick();
         }
     }
 }

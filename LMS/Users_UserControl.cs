@@ -80,6 +80,7 @@ namespace LMS
                 );
             }
             refreshUserDataTable();
+            MessageBox.Show("Users Updated");
         }
 
         private void dgvUsers_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -114,7 +115,6 @@ namespace LMS
                 txtGivenName.Text = String.Empty;
                 txtFamilyName.Text = String.Empty;
                 refreshUserDataTable();
-                MessageBox.Show("User added.");
             }
         }
 

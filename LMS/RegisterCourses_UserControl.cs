@@ -49,10 +49,12 @@ namespace LMS
                     }
                 }
                 cboUsers.Visible = true;
+                lblUser.Visible = true;
             }
             else
             {
                 cboUsers.Visible = false;
+                lblUser.Visible = false;
             }
             cboUsers.Text = String.Empty;
         }

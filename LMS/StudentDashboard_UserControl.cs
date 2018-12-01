@@ -59,7 +59,10 @@ namespace LMS
                     }
                 }
                 txtYear.Text = LMS_Db_Connection.Instance.UserYear.ToString();
-                txtGPA.Text = LMS_Db_Connection.Instance.getStudentGPACurrentSemester().ToString("P2");
+                if (LMS_Db_Connection.Instance.getStudentGPACurrentSemester().ToString("P2") != "NaN")
+                    txtGPA.Text = LMS_Db_Connection.Instance.getStudentGPACurrentSemester().ToString("P2");
+                else
+                    txtGPA.Text = String.Empty;
             }
         }
         private void StudentDashboard_UserControl_Load(object sender, EventArgs e)
