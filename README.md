@@ -1,4 +1,4 @@
-#Learning Management System
+# Learning Management System
 
 Below you will find the project report turned in for the class assignment.
 
@@ -8,11 +8,11 @@ Below you will find the project report turned in for the class assignment.
 
 **Members (5)**: Jason Brunelle, Fabian Hernandez Nieto, Tom Phan, Tristen Stacks, Vi Ta
 
-##Team Model
+## Team Model
 
 Our team used a Democratic Team Model. We found this to be beneficial since it does not enforce any formal team hierarchy. A Democratic team structure is appropriate for less understood problems. It allows the group to invent better solutions rather than using a chief programmer team. This project didn’t require many engineers so our group of 5 worked well with this model. This model allowed us to encourage egoless programming and allowed our team to share and review each others work.
 
-##Test Cases
+## Test Cases
 
 The test cases we conducted have passed most, if not all, of our requirements as of our last tests.
 
@@ -106,9 +106,9 @@ Use Case 5 (Reassign Headmaster/Headmistress)
 
 ### UML Diagrams
 
-![Entity Relationship Diagram](/LMS_ER.png)
+![Entity Relationship Diagram](/LMS_ER.PNG)
 
-![Entity Relationship Diagram](/LMS_ER2.png)
+![Entity Relationship Diagram](/LMS_ER2.PNG)
 
 ![Entity Relationship Diagram](/LMS_UML.png)
 
